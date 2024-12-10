@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
     <link rel="icon" type="image/png" href="{% static 'img/whale.png' %}">
     {% block css_files %} {% endblock %}
     <title>Balina Trade</title>
@@ -15,9 +16,22 @@
 
     {% block leftbar %} {% endblock %}
 
+    {% block rightbar %} {% endblock %}
+
     {% block content %} {% endblock %}
+    
+    {% block alert %} {% endblock %}
+
+    {% if messages %}
+        <div id="popup-container">
+            {% for message in messages %}
+            <div class="popup {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plotly-latest.min.js' %}"></script>
     {% block js_files %} {% endblock %}
 </body>
 </html>

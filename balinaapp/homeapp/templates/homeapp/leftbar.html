@@ -1,15 +1,15 @@
 {% load static %}
 
-<div id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-        <img src="{% static 'img/whale.png' %}" alt="Profil Fotoğrafı" class="profile-img">
+<div id="sidebar-left" class="sidebar-left">
+    <div class="sidebar-header-left">
+        <img src="{% static 'img/whale.png' %}" alt="Profil Fotoğrafı" class="profile-img" style="width: 140px; height: auto;">
         <h4 class="username">{{user.get_full_name|title}}</h4>
     </div>
-    <ul class="sidebar-links">
+    <ul class="sidebar-links-left">
         <li><a href="{% url 'intro-page' %}">Home</a></li>
-        <li><a href="{% url 'profile' %}">Profilim</a></li>
-        <li><a href="{% url 'indicator' %}">İndikatörlerim</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'indicators_page' %}">My Indicators</a></li>
         <li><a href="{% url 'logout' %}">Logout</a></li>
     </ul>
 </div>
-<button id="toggleSidebar" class="toggle-btn">☰</button>
+<button id="toggleSidebar-left" class="toggle-btn-left">☰</button>
