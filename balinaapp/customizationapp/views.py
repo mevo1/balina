@@ -1,21 +1,20 @@
+import numpy as np
+import pandas as pd
+import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from .models import Indicator, Coins
-import json
 from django.shortcuts import render
-import numpy as np
-import pandas as pd
-
 from .plot_indicator import plot_indicator
 from .get_binance_data import get_binance_data
+from .indicator_library import plot
 
 data = None
-
-
+plot_id = 0
 
 def indicators_page(request):
-    chart_html = plot_indicator() # Grafiği HTML olarak render et, chartın içine at.
+    #chart_html = plot_indicator() # Grafiği HTML olarak render et, chartın içine at.
     coins = Coins.objects.all()
     return render(request, 'customizationapp/indicator.html', {"coins": coins})
 
@@ -30,8 +29,6 @@ def main_graph(request):
             period = data.get("period")
             
             data = get_binance_data(symbol,interval,period)
-            print("data")
-            print(type(data["open"]))
 
             formatted_data = {
             "time": data["time"].dt.strftime("%Y-%m-%d %H:%M:%S").tolist(),
@@ -48,41 +45,24 @@ def main_graph(request):
 
 def update_graph(request,id):
     global data
-    local_vars = {}
     
     if request.method == "POST":
+        if data is None:
+            return JsonResponse({"message": "First of all you need to draw graph!","info":"error"})
         try:
+            plot_data = []
             indicator = get_object_or_404(Indicator, id=id)
-
             time = data["time"]
             close = data["close"]
             open = data["open"]
             high = data["high"]
             low = data["low"]
             volume = data["volume"]
-
-            exec(indicator.code, globals(), local_vars)
-
-            if 'balina_indicator' in local_vars:
-                result = local_vars['balina_indicator'](time,close,open,high,low,volume)
-                result = result.replace([np.inf, -np.inf], None)
-                #result = result.fillna(result.mean())
-                result = result.iloc[:,0]
-
-                data = {
-                    "time": data["time"].dt.strftime("%Y-%m-%d %H:%M:%S").tolist(),
-                    "result": result.tolist(),
-                    "name": indicator.title
-                }
-                
-                return JsonResponse(data, safe=False)
-            else:
-                return JsonResponse({"message": "Fonksiyon tanımlanmadı.","info":"errorr"})
-            
+            exec(indicator.code)
+            return JsonResponse(list(plot_data), safe=False)
+                     
         except Exception as e:
-            return JsonResponse({"message": (str(e)),"info":"errorr"})
-
-
+            return JsonResponse({"message": (str(e)),"info":"error"})
 
 # İNDİCATORS
 def list_indicators(request):
@@ -134,7 +114,7 @@ def update_indicator(request, id):
 
             return JsonResponse({"message": "Indicator updated successfully.","info":"success"})
         except Exception as e:
-            return JsonResponse({"message": (str(e)),"info":"errorr"})
+            return JsonResponse({"message": (str(e)),"info":"error"})
 
 def get_indicator(request, id):
     indicator = get_object_or_404(Indicator, id=id)

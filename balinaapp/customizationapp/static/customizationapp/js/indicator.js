@@ -12,16 +12,27 @@ function loadIndicators() {
                         <strong>${index + 1}.</strong> <!-- artan numara -->
                         <i class="fas fa-chart-line"></i> ${indicator.title}
                     </a>
-                    <button id="visibleBtn-${indicator.id}" class="visible-btn" onclick="visibleIndicator(${indicator.id}, event)">Visible</button>
+                    <button id="visibleBtn-${indicator.id}" class="visible-btn" data-id="${indicator.id}" onclick="visibleIndicator(${indicator.id}, event, this)">Visible</button>
                     <button id="deleteBtn-${indicator.id}" class="delete-btn" onclick="deleteIndicator(${indicator.id}, event)">Del</button> 
                 </li>`;
             });
+            const buttons = document.querySelectorAll('.visible-btn');
+            const traceIds = window.traceList.map(trace => trace.id);
+            buttons.forEach(button => {
+                const buttonId = parseInt(button.getAttribute('data-id'), 10);
+                if (traceIds.includes(buttonId)) {
+                    button.classList.add('disabled-btn');
+                }
+            });
         });
+        
 }
+
 
 let currentIndicatorId = null;
 
 function saveIndicator() {
+    //remove_graph()
     const title = document.getElementById("indicator-title").value;
     const code = document.getElementById("code").value;
     const OnGraph = document.getElementById("on_graph").checked;
@@ -31,7 +42,7 @@ function saveIndicator() {
         : "/customization/api/indicators/"; // Yeni ekleme için
 
     const method = currentIndicatorId ? 'PUT' : 'POST';
-    //console.log(url,method)
+
     fetch(url, {
         method: method,
         headers: {
@@ -48,7 +59,6 @@ function saveIndicator() {
     .then(data => {
         showAlert(data.message, data.info);
         loadIndicators();
-        //resetForm();
     })
     .catch(error => {
         alert(`An error occurred: ${error.message}`);

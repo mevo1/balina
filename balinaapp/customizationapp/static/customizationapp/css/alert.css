@@ -6,12 +6,13 @@
     border-radius: 8px;
     background-color: #f44336; /* Kırmızı arka plan */
     color: white;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    border: 3px solid black; /* Siyah dış çizgi */
     max-width: 300px;
     z-index: 1000;
     opacity: 0;
@@ -20,6 +21,7 @@
     transition: opacity 1s ease, transform 1s ease;
     text-align: center;
 }
+
 
 #custom-alert button {
     background: none;
