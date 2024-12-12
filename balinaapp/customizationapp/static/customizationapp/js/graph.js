@@ -130,76 +130,45 @@ function plot_main_graph(data){
         name: 'main_graph'
     };
     traceList.push(trace)
-    // Grafik düzeni
-    const layout = {
-                        title: null,
+    
+    const formattedData = traceList[0].x.map((time, index) => [
+        time, // Zaman (timestamp)
+        traceList[0].open[index], // Açılış
+        traceList[0].high[index], // Yüksek
+        traceList[0].low[index], // Düşük
+        traceList[0].close[index] // Kapanış
+    ]);
 
-                        xaxis: {
-                            title: null,
-                            rangeslider: { visible: false } // Rangeslider gizle
-                        },
-                    
-                        yaxis: {
-                            title: null,
-                            autorange: true,
-                            fixedrange: false
-                        },
-                    
-                        plot_bgcolor: "white",
-                        paper_bgcolor: "white",
-                        font: { color: "black" },
-                        height: 480,
-                        margin: { t: 10, b: 60, r: 30, l: 60 },
-                        dragmode: false, // Varsayılan olarak çizim modu kapalı
-                        newshape: {
-                        
-                            line: {
-                                color: 'blue', // Çizilen çizgilerin rengi
-                                width: 2 // Çizilen çizgilerin kalınlığı
-                            }
-                        
-                        }
-                    };
-
-    // Konfigürasyon ayarları
-    const config = {
-                    modeBarButtonsToAdd: [
-                        {
-                            name: 'Çizgi Çizme Modu',
-                            icon: Plotly.Icons.pencil, // Sol üstte gösterilecek ikon
-                            click: function(gd) {
-                                // Çizgi çizme modunu aktif/pasif yap
-                                let currentMode = gd._fullLayout.dragmode;
-                                Plotly.relayout(gd, { dragmode: currentMode === 'drawline' ? false : 'drawline' });
-                            }
-                        },
-                        {
-                            name: 'Çizgileri Kaldır',
-                            icon: Plotly.Icons.trash, // Çöp kutusu ikonu
-                            click: function(gd) {
-                                // Çizgileri kaldır
-                                Plotly.relayout(gd, { shapes: [] });
-                            }
-                        }
-                    ],
-                    modeBarButtonsToRemove: ["select2d", "lasso2d"],
-                    scrollZoom: true, // Scroll zoom'u aktif et
-                    displayModeBar: true, // Mod çubuğunu göster
-                    responsive: true
-                }; 
-
-    // Grafiği oluştur ve container'a ekle
-    Plotly.newPlot('chart-container', [trace], layout, config);
+    // Highcharts ile çizim
+    Highcharts.stockChart('chart-container', {
+        rangeSelector: {
+            selected: 1
+        },
+        title: {
+            text: traceList[0].name
+        },
+        series: [{
+            type: traceList[0].type,
+            name: traceList[0].name,
+            data: formattedData,
+            upColor: 'green',  // Yükseliş mumlarının rengi
+            color: 'white',      // Düşüş mumlarının rengi
+            lineColor: 'black', // Mumların dış kenar çizgi rengi
+            tooltip: {
+                valueDecimals: 2
+            }
+        }]
+    });
 }
 
-function plot_with_indicator(){
+function plot_with_indicator() {
     if (traceList.length === 0) {
-        return null
-    }else{
-            // on_graph değerine göre verileri filtrele
+        return null;
+    } else {
+        // Verileri on_graph değerine göre filtrele
         const falseGraphTraces = traceList.filter(trace => !trace.on_graph); // on_graph false olanlar
         const trueGraphTraces = traceList.filter(trace => trace.on_graph); // on_graph true olanlar
-        
+
         // on_graph false olan traceler için id'ye göre gruplama
         const groupedTraces = falseGraphTraces.reduce((acc, trace) => {
             if (!acc[trace.id]) acc[trace.id] = [];
@@ -207,50 +176,134 @@ function plot_with_indicator(){
             return acc;
         }, {});
 
-        // Layout için row sayısını belirle
-        const rowCount = Object.keys(groupedTraces).length + 1; // Gruplar + en üstteki false traceler için
+        // Highcharts için grafik düzenini temizle
+        const container = document.getElementById('chart-container');
+        container.innerHTML = '';
 
-        // Layout ayarlarını oluştur
-        const layout = {
-            grid: { rows: rowCount, columns: 1, pattern: 'independent' },
-            height: 480 * rowCount, // Her satır için yüksekliği ayarlayın
-            title: 'Multi-Row Subplots'
-        };
+        // Highcharts grafik referanslarını tutacak dizi
+        const charts = [];
 
-        // Figure data'sını oluştur
-        const figureData = [];
+        // trueGraphTraces için ana grafik oluştur
+        const mainChart = document.createElement('div');
+        mainChart.id = 'main-chart';
+        container.appendChild(mainChart);
 
-        // on_graph true olanları ilk subplot'a ekle
-        trueGraphTraces.forEach(trace => {
-            figureData.push({
-                ...trace,
-                xaxis: 'x1' , // İlk subplot için x
-                yaxis: 'y1' , // İlk subplot için y
-                xaxis: {
-                    ...trace.xaxis, // Mevcut xaxis özelliklerini korur
-                    rangeslider: { visible: false } // rangeslider özelliğini ekler
-                } 
-            });
+        const mainChartInstance = Highcharts.stockChart('main-chart', {
+            chart: {
+                events: {
+                    selection: function (event) {
+                        if (event.xAxis) {
+                            const min = event.xAxis[0].min;
+                            const max = event.xAxis[0].max;
+
+                            // Diğer grafiklerde zoom'u senkronize et
+                            charts.forEach(chart => {
+                                if (chart !== this) {
+                                    chart.xAxis[0].setExtremes(min, max, true, false);
+                                }
+                            });
+                        }
+                        return false; // Default zoom davranışını devre dışı bırak
+                    }
+                }
+            },
+            title: { text: 'Main Graph' },
+            series: trueGraphTraces.map(trace => {
+                if (trace.type === 'candlestick') {
+                    return {
+                        type: 'candlestick',
+                        name: trace.name,
+                        data: trace.x.map((time, index) => [
+                            new Date(time).getTime(),
+                            trace.open[index],
+                            trace.high[index],
+                            trace.low[index],
+                            trace.close[index]
+                        ])
+                    };
+                } else {
+                    return {
+                        type: 'line',
+                        name: trace.name,
+                        data: trace.x.map((time, index) => [
+                            new Date(time).getTime(),
+                            trace.y[index]
+                        ]),
+                        color: trace.line?.color || '#000000',
+                        lineWidth: trace.line?.width || 1
+                    };
+                }
+            })
         });
 
-        // on_graph true olanları farklı subplotlara ekle
-        let rowIndex = 2; // İlk satır trueGraphTraces için ayrıldığı için 2'den başlıyoruz
-        Object.values(groupedTraces).forEach(traceGroup => {
-            traceGroup.forEach(trace => {
-                figureData.push({
-                    ...trace,
-                    xaxis: `x${rowIndex}`,
-                    yaxis: `y${rowIndex}`
+        charts.push(mainChartInstance);
+
+        // falseGraphTraces için alt grafikler oluştur
+        Object.values(groupedTraces).forEach((traceGroup, index) => {
+            const subChart = document.createElement('div');
+            subChart.id = `sub-chart-${index + 1}`;
+            container.appendChild(subChart);
+
+            const subChartInstance = Highcharts.chart(`sub-chart-${index + 1}`, {
+                chart: {
+                    events: {
+                        selection: function (event) {
+                            if (event.xAxis) {
+                                const min = event.xAxis[0].min;
+                                const max = event.xAxis[0].max;
+
+                                // Diğer grafiklerde zoom'u senkronize et
+                                charts.forEach(chart => {
+                                    if (chart !== this) {
+                                        chart.xAxis[0].setExtremes(min, max, true, false);
+                                    }
+                                });
+                            }
+                            return false; // Default zoom davranışını devre dışı bırak
+                        }
+                    }
+                },
+                title: { text: `Sub Indicator ${index + 1}` },
+                series: traceGroup.map(trace => {
+                    return {
+                        type: 'line',
+                        name: trace.name,
+                        data: trace.x.map((time, index) => [
+                            new Date(time).getTime(),
+                            trace.y[index]
+                        ]),
+                        color: trace.line?.color || '#000000',
+                        lineWidth: trace.line?.width || 1
+                    };
+                })
+            });
+
+            charts.push(subChartInstance);
+        });
+
+        // Senkronize pan/zoom için Highcharts olay dinleyicileri
+        charts.forEach(chart => {
+            chart.container.addEventListener('mousemove', function (e) {
+                const chartX = chart.pointer.normalize(e).chartX;
+                const xAxisValue = chart.xAxis[0].toValue(chartX, true);
+
+                charts.forEach(otherChart => {
+                    if (otherChart !== chart) {
+                        const xAxis = otherChart.xAxis[0];
+                        if (xAxis && xAxis.toPixels) {
+                            const otherChartX = xAxis.toPixels(xAxisValue, true);
+                            otherChart.pointer.runPointActions({
+                                chartX: otherChartX,
+                                chartY: e.chartY
+                            });
+                        }
+                    }
                 });
             });
-            rowIndex++;
         });
-
-        // Grafiği çiz
-        Plotly.newPlot('chart-container', figureData, layout);
     }
-    
 }
+
 
 function remove_graph(){
     traceList = [];
