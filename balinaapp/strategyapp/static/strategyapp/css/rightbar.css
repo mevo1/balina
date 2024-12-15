@@ -95,24 +95,6 @@
     border-radius: 10px; 
 }
 
-.delete-btn {
-    margin-top: 5px;
-    background-color: red;
-    width: 40px;
-    color: #ffffff;
-    border: 2px;
-    padding: 5px 5px;
-    cursor: pointer;
-    border-radius: 6px;
-    font-size: 16px;
-    position: absolute; /* KonumlandÄ±rmayÄ± mutlak hale getir */
-    right: 20px; /* SaÄŸ kenardan 10px mesafe */
-}
-
-.delete-btn:hover {
-    background-color: darkred;
-}
-
 .visible-btn {
     margin-top: 5px;
     background-color: rgb(13 121 210);
@@ -124,7 +106,7 @@
     border-radius: 6px;
     font-size: 16px;
     position: absolute; /* KonumlandÄ±rmayÄ± mutlak hale getir */
-    right: 70px; /* SaÄŸ kenardan 10px mesafe */
+    right: 20px; /* SaÄŸ kenardan 10px mesafe */
 }
 
 .visible-btn:hover {

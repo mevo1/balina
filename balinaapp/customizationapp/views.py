@@ -3,10 +3,8 @@ import pandas as pd
 import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
 from .models import Indicator, Coins
-from django.shortcuts import render
-from .plot_indicator import plot_indicator
+from django.shortcuts import render, get_object_or_404
 from .get_binance_data import get_binance_data
 from .indicator_library import plot
 

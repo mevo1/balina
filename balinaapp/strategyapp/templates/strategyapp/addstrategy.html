@@ -1,18 +1,27 @@
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <h4 class="card-title text-center mb-4">Add New Indicator</h4>
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="card-title text-center mb-4">New Strategy</h4>
+            </div>
+            <div class="col-md-2">
+                <button id="mainButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#strategyModal">
+                    ☰
+                </button>
+            </div>
+        </div>
         <form method="POST">
             {% csrf_token %}
-                <form id="new-indicator-form" action="indicator" method="POST">
+                <form id="new-strategy-form" action="strategy" method="POST">
                     <div class="mb-3">
-                        <label for="title" class="form-label">Indicator Title</label>
+                        <label for="title" class="form-label">Strategy Title</label>
                         <input 
                             type="text" 
                             class="form-control" 
                             name="title" 
-                            id="indicator-title" 
-                            placeholder="Enter title" 
+                            id="strategy-title" 
+                            placeholder="Enter Title" 
                             required>
                     </div>
                     <div class="mb-3">
@@ -25,12 +34,8 @@
                             style="white-space: nowrap; overflow-x: scroll; resize: none;" 
                             required></textarea>
                     </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="form-check-input" name="on_graph" id="on_graph">
-                        <label class="form-check-label" for="on_graph">Display on Graph</label>
-                    </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" name="action" value="save" onclick="saveIndicator()">Save</button>
+                        <button type="button" class="btn btn-primary" name="action" value="save" onclick="saveStrategy()">Save</button>
                     </div>
                 </form>
         </form>

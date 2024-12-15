@@ -3,7 +3,6 @@
 
     {% block css_files %} 
     <link rel="stylesheet" href="{% static 'homeapp/css/profilestyle.css' %}">
-    <link rel="stylesheet" href="{% static 'customizationapp/css/pop-up.css' %}">
     <link rel="stylesheet" href="{% static 'customizationapp/css/rightbar.css' %}">
     <link rel="stylesheet" href="{% static 'customizationapp/css/alert.css' %}">
     {% endblock %} 
@@ -37,13 +36,9 @@
     {% endblock %}
 
     {% block js_files %} 
-        <script>
-            const indicatorListUrl = "{% url 'list_indicators' %}";
-        </script>
         <script src="{% static 'homeapp/js/leftbar.js' %}"></script>
         <script src="{% static 'customizationapp/js/dropdown.js' %}"></script>
         <script src="{% static 'customizationapp/js/graph.js' %}"></script>
-        <script src="{% static 'customizationapp/js/pop-up.js' %}"></script>
         <script src="{% static 'customizationapp/js/indicator.js' %}"></script>
         <script src="{% static 'customizationapp/js/rightbar.js' %}"></script>
     {% endblock %}

@@ -1,0 +1,35 @@
+.open-btn {
+    margin-top: 0px;
+    background-color: rgb(13 121 210);
+    width: 70px;
+    color: #ededed;
+    border: 2px;    
+    padding: 4px 4px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    position: absolute; /* KonumlandÄ±rmayÄ± mutlak hale getir */
+    right: 100px; /* SaÄŸ kenardan 10px mesafe */
+}
+
+.open-btn:hover {
+    background-color: rgb(0, 0, 0);
+}
+
+.delete-btn {
+    margin-top: 0px;
+    background-color: rgb(210 13 13);
+    width: 70px;
+    color: #ededed;
+    border: 2px;    
+    padding: 4px 4px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    position: absolute; /* KonumlandÄ±rmayÄ± mutlak hale getir */
+    right: 20px; /* SaÄŸ kenardan 10px mesafe */
+}
+
+.delete-btn:hover {
+    background-color: rgb(0, 0, 0);
+}

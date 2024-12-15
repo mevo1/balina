@@ -57,7 +57,7 @@ function visibleIndicator(id,event,button){
     .then(data => {
         if (data.message && data.info) {
             
-            showAlert(data.message, data.info);
+            showAlertGraph(data.message, data.info);
         }else{
             // YENİ İNDİKATÖRLERİ DOLDUR
             data.forEach((item) => {
@@ -80,7 +80,7 @@ function visibleIndicator(id,event,button){
                     // GRAFİK OLUŞTUR
                     plot_with_indicator()
                 }else{
-                    showAlert("Already there is plot with same name!", "error");
+                    showAlertGraph("Already there is plot with same name!", "error");
                 }
             }); 
         }       
@@ -98,7 +98,7 @@ function hideIndicator(id,event,button){
     plot_with_indicator()
 }
 
-function showAlert(message, type = 'info') {
+function showAlertGraph(message, type = 'info') {
     console.log(message)
     const alertBox = document.getElementById('custom-alert');
     const alertMessage = document.getElementById('alert-message');

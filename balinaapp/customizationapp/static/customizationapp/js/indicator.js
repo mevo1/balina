@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", loadIndicators);
 function loadIndicators() {
-    fetch(indicatorListUrl)
+    fetch("/customization/api/indicator/")
         .then(response => response.json())
         .then(data => {
             const list = document.getElementById("indicatorList");
@@ -25,7 +25,6 @@ function loadIndicators() {
                 }
             });
         });
-        
 }
 
 

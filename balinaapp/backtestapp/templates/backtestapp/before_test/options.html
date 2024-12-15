@@ -1,0 +1,40 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Seçenekler</h5>
+    </div>
+    <div class="card-body">
+        <form id="options-form">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="interval" class="form-label">Interval</label>
+                    <input type="text" class="form-control" id="interval" name="interval" placeholder="Örn: 15m">
+                </div>
+                <div class="col-md-6">
+                    <label for="period" class="form-label">Period</label>
+                    <input type="text" class="form-control" id="period" name="period" placeholder="Örn: 20">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="first-margin" class="form-label">First Marj</label>
+                    <input type="text" class="form-control" id="first-margin" name="first-margin" placeholder="Örn: 5%">
+                </div>
+                <div class="col-md-6">
+                    <label for="commission" class="form-label">Komisyon</label>
+                    <input type="text" class="form-control" id="commission" name="commission" placeholder="Örn: 0.1%">
+                </div>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="take-profit" value="Hareketli Kar Al">
+                <label class="form-check-label" for="take-profit">Hareketli Kar Al</label>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="stop-loss" value="Hareketli Zarar Durdur">
+                <label class="form-check-label" for="stop-loss">Hareketli Zarar Durdur</label>
+            </div>
+            <div class="d-grid">
+                <button type="button" class="btn btn-danger" id="run-bot">Botu Çalıştır</button>
+            </div>
+        </form>
+    </div>
+</div>
