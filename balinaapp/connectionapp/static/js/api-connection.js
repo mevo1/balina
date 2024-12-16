@@ -24,6 +24,8 @@ function saveApi() {
     const name = document.getElementById("apiName").value;
     const adress = document.getElementById("apiAddress").value;
     const secretkey = document.getElementById("apiSecret").value;
+    const balance_value = document.getElementById("total_balance").value;
+
 
     const url = currentApiId
         ? `/connection/api/api/${currentApiId}/` // Güncelleme için
@@ -38,7 +40,7 @@ function saveApi() {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCSRFToken()
         },
-        body: JSON.stringify({ name, adress, secretkey })
+        body: JSON.stringify({ name, adress, secretkey, balance_value})
         
     })
     
@@ -70,6 +72,7 @@ function showAlert(message, type = 'info') {
 
     alertMessage.textContent = message;
 
+    alertBox.className = "";
     alertBox.classList.add("visible"); // Türüne göre sınıf ekle (success, warning, info vb.)
     alertBox.classList.add(type); // Türüne göre sınıf ekle (success, warning, info vb.)
 
@@ -78,3 +81,4 @@ function showAlert(message, type = 'info') {
         alertBox.classList.remove('visible'); // Tüm sınıfları kaldır
     }, 2500);
 }
+

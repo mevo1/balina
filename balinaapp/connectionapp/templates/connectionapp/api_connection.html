@@ -21,11 +21,16 @@
                 <form id="apiForm" action="api" method="POST">
                     {% csrf_token %}
                     <input type="text" id="apiName" name="api-name" placeholder="API name" required>
-                    <input type="text" id="apiAddress" name="api-address" placeholder="API address" required>
-                    <input type="password" id="apiSecret" name="api-secretkey" placeholder="API Secretkey" required>
+                    <input type="text" id="apiAddress" name="api-address" placeholder="API address" value="38FaBmpUbUwiL2XNJUy1OXKZxCi5IE3Z6GKlui4r8E800iJQ4b8UMv6ubC840MFO" required>
+                    <input type="password" id="apiSecret" name="api-secretkey" placeholder="API Secretkey" value="KNqOOfL7jEnWxyIkHQOEgI9Cbv4pOqm92FPeFIVPUwAFlQof5JHKdMzlZqnHRBJH" required>
 
                     <button type="button" class="btn btn-primary" name="action" value="save" onclick="saveApi()">Bağla</button>
+       
                 </form>
+                   
+                <div id="control_balance">
+                    <input type="text" id="total_balance" name="balance-name" placeholder="Bakiyenizi giriniz" required>
+                </div>
 
                 <div id="connectedMessage">
                     <p><strong>Bağlı API'ler:</strong></p>

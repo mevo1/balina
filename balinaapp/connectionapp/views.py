@@ -5,6 +5,7 @@ from .models import Api
 import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .api_control import check_total_balance
 
 @login_required
 def api_connection(request):
@@ -60,6 +61,8 @@ def add_api(request):
             name = data.get("name")
             adress = data.get("adress")
             secretkey = data.get("secretkey")
+            balance_value =int(data.get("balance_value")) 
+            
             print(data, name, adress,secretkey)
             if Api.objects.filter(name=name, user_id=request.user.id).exists():
                 return JsonResponse({"message": "There is an indicator with the same title!","info":"warning"})
@@ -68,9 +71,14 @@ def add_api(request):
                 return JsonResponse({"message": adress,"info":"warning"})
             if not adress or not secretkey:
                 return JsonResponse({"message": "Title and code are required.","info":"warning"})
-            Api.objects.create(name=name, adress=adress, secretkey=secretkey, user_id=request.user.id)
-
-            return JsonResponse({"message": "Indicator saved successfully.","info":"success"})
+            
+            message = check_total_balance(adress,secretkey,balance_value)
+            if message=="Tebrikler! Doğru":
+                Api.objects.create(name=name, adress=adress, secretkey=secretkey, user_id=request.user.id)
+                return JsonResponse({"message": message,"info":"success"})
+            else:
+                return JsonResponse({"message": message,"info":"error"})
+        
         except Exception as e:
             return JsonResponse({"message": (str(e)),"info":"errorr"})
 
