@@ -90,6 +90,7 @@ function showAlert(message, type = 'info') {
 
     alertMessage.textContent = message;
 
+    alertBox.className = "";
     alertBox.classList.add("visible"); // Türüne göre sınıf ekle (success, warning, info vb.)
     alertBox.classList.add(type); // Türüne göre sınıf ekle (success, warning, info vb.)
 

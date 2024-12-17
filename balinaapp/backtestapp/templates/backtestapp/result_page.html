@@ -20,35 +20,8 @@
     {% endblock %} 
 
     {% block content %}
-        <div class="container">
-            <!-- Backtest Adı Alanı -->
-            <div class="row mb-4">
-                <div class="col-12 text-center mt-4">
-                    <input type="text" id="backtest-name-input" class="form-control mx-auto" style="width: 25%;" value="MyBt">
-                </div>
-            </div>            
-
-            <!-- Üçlü Row -->
-            <div class="row">
-                <div class="col-md-4" style="margin-top: 15px;">
-                    <div class="ms-5">
-                        {% include "backtestapp/before_test/strategies.html" %}
-                    </div> 
-                </div>
-                <div class="col-md-4" style="margin-top: 15px;">
-                    <div class="me-5 ms-5">
-                        {% include "backtestapp/before_test/coins.html" %}
-                    </div>
-                </div>
-                <div class="col-md-4" style="margin-top: 15px;">
-                    <div class="me-5">
-                        {% include "backtestapp/before_test/options.html" %}
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include "backtestapp/result.html" %}
     {% endblock %}
-
 
     {% block alert %} 
     <div id="custom-alert" class="hidden">

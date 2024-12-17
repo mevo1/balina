@@ -1,0 +1,25 @@
+/* Dropdown button style */
+.custom-dropdown-button {
+    background-color: #4CAF50; /* Yeşil arka plan rengi */
+    color: white; /* Beyaz metin rengi */
+    border: none; /* Kenarlık kaldırma */
+}
+
+.custom-dropdown-button:hover {
+    background-color: #45a049; /* Hover için daha koyu yeşil */
+}
+
+/* Dropdown menu style */
+.custom-dropdown-menu {
+    background-color: #f0f0f0; /* Açılır menü için açık gri arka plan */
+}
+
+/* Dropdown item style */
+.custom-dropdown-item {
+    color: #333; /* Varsayılan metin rengi */
+}
+
+.custom-dropdown-item:hover {
+    background-color: #4CAF50; /* Hover için yeşil arka plan */
+    color: white; /* Hover sırasında beyaz metin */
+}

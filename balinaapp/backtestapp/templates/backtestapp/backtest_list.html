@@ -2,12 +2,12 @@
     <div class="sidebar-header-right">
         <h4 class="username-right">Backtest List</h4>
     </div>
-    <ul class="sidebar-links-right" id="indicatorList">
+    <ul class="sidebar-links-right" id="backtestList">
         <!-- İNDİKATÖRLERİN LİSTESİ -->
     </ul>
 
     <!-- YENİ İNDİKATÖR EKLEME (+) BUTONU -->
-    {% if request.resolver_match.url_name != 'indicator' %}
+    {% if request.resolver_match.url_name != 'backtest' %}
     <div class="mt-3 text-center">
         <button type="button" class="btn" class="text-decoration-none" style="background-color: #90EE90; color: white; border-color: #90EE90;" onclick="resetForm()">
             +

@@ -1,0 +1,111 @@
+<div class="container my-5">
+    <!-- Portfolio Summary Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+        <h5>Portfolio Summary</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Last Portfolio Size:</strong> <span id="portfolio-size">0 USD</span></p>
+            <p><strong>Total Profit/Loss:</strong> <span id="total-pnl">0 USD</span></p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Total Number of Trades:</strong> <span id="total-trades">0 Times</span></p>
+            <p><strong>Winning Trades:</strong> <span id="winning-trades">0 Times</span></p>
+            <p><strong>Losing Trades:</strong> <span id="losing-trades">0 Times</span></p>
+            <p><strong>Success Rate:</strong> <span id="success-rate">100 %</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Graphs Section -->
+    <div class="card">
+      <div class="card-header bg-secondary text-white">
+        <h5>Graph</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="profitGraph" class="mb-4"></canvas>
+        <canvas id="stockGraph"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const backtestData = JSON.parse(sessionStorage.getItem('backtestResult'));
+    
+        if (backtestData) {
+            // HTML'ye verileri yerleştir
+            document.getElementById('portfolio-size').innerText = `${backtestData.last_margin.toFixed(2)} USD`;
+            document.getElementById('total-pnl').innerText = `${backtestData.total_return.toFixed(2)} USD`;
+            document.getElementById('total-trades').innerText = `${backtestData.process_count} Times`;
+            document.getElementById('winning-trades').innerText = `${backtestData.profit_process_count} Times`;
+            document.getElementById('losing-trades').innerText = `${backtestData.loss_process_count} Times`;
+            document.getElementById('success-rate').innerText = `${backtestData.success_rate.toFixed(2)} %`;
+    
+            // NaN değerlerini bir sonraki değerle doldurma fonksiyonu
+            function fillMissingValues(data, key) {
+                for (let i = 0; i < data.length; i++) {
+                    if (isNaN(data[i][key]) || data[i][key] === null) {
+                        let nextValid = data.slice(i).find(item => !isNaN(item[key]) && item[key] !== null);
+                        if (nextValid) {
+                            data[i][key] = nextValid[key]; // Bir sonraki geçerli değeri kullan
+                        } else if (i > 0) {
+                            data[i][key] = data[i - 1][key]; // Son geçerli değeri kullan
+                        }
+                    }
+                }
+                return data;
+            }
+    
+            // profit_graph ve stock_graph verilerini parse et ve doldur
+            let profitGraphData = JSON.parse(backtestData.profit_graph.replace(/NaN/g, "null"));
+            let stockGraphData = JSON.parse(backtestData.stock_graph.replace(/NaN/g, "null"));
+    
+            profitGraphData = fillMissingValues(profitGraphData, 'profit_graph');
+            stockGraphData = fillMissingValues(stockGraphData, 'stock_graph');
+    
+            // Chart.js ile grafik çizimi
+            const ctx = document.getElementById('profitGraph').getContext('2d');
+    
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: profitGraphData.map(item => item.time), // Zaman etiketleri
+                    datasets: [
+                        {
+                            label: 'Profit Graph',
+                            data: profitGraphData.map(item => item.profit_graph),
+                            borderColor: 'blue',
+                            borderWidth: 2,
+                            fill: false
+                        },
+                        {
+                            label: 'Stock Graph',
+                            data: stockGraphData.map(item => item.stock_graph),
+                            borderColor: 'red',
+                            borderWidth: 2,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true, position: 'top' }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Time' } },
+                        y: { title: { display: true, text: 'Value' } }
+                    }
+                }
+            });
+        } else {
+            alert("Veri bulunamadı, lütfen tekrar deneyin.");
+        }
+    });
+    
+</script>

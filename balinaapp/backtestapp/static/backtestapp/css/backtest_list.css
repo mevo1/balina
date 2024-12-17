@@ -95,10 +95,10 @@
     border-radius: 10px; 
 }
 
-.delete-btn {
+.view-btn {
     margin-top: 5px;
-    background-color: red;
-    width: 40px;
+    background-color: #0d9efd;
+    width: 45px;
     color: #ffffff;
     border: 2px;
     padding: 5px 5px;
@@ -106,17 +106,17 @@
     border-radius: 6px;
     font-size: 16px;
     position: absolute; /* KonumlandÄ±rmayÄ± mutlak hale getir */
-    right: 20px; /* SaÄŸ kenardan 10px mesafe */
+    right: 85px; /* SaÄŸ kenardan 10px mesafe */
 }
 
-.delete-btn:hover {
-    background-color: darkred;
+.view-btn:hover {
+    background-color: rgb(9 65 155);
 }
 
-.visible-btn {
+.analyze-btn {
     margin-top: 5px;
-    background-color: rgb(13 121 210);
-    width: 60px;
+    background-color: rgb(0, 149, 40);
+    width: 70px;
     color: #ededed;
     border: 2px;    
     padding: 5px 5px;
@@ -124,11 +124,11 @@
     border-radius: 6px;
     font-size: 16px;
     position: absolute; /* KonumlandÄ±rmayÄ± mutlak hale getir */
-    right: 70px; /* SaÄŸ kenardan 10px mesafe */
+    right: 10px; /* SaÄŸ kenardan 10px mesafe */
 }
 
-.visible-btn:hover {
-    background-color: rgb(0, 0, 0);
+.analyze-btn:hover {
+    background-color: rgb(0, 103, 29);
 }
 
 /* Göz Butonu*/

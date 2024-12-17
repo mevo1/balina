@@ -1,25 +1,15 @@
 <div class="card shadow-sm mb-4">
     <div class="card-header bg-primary text-white">
-        <h5 class="mb-0">Stratejilerim</h5>
+        <h5 class="mb-0">My Strategies</h5>
     </div>
     <div class="card-body">
         <form id="strategy-form">
+            {% for strategy in strategies %}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="strategy" id="strategy1" value="strategy1">
-                <label class="form-check-label" for="strategy1">Strategy 1</label>
+                <input class="form-check-input" type="radio" name="strategy" id="{{strategy.id}}" value="{{strategy.title}}">
+                <label class="form-check-label" for="{{strategy.id}}">{{strategy.title}}</label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="strategy" id="strategy2" value="strategy2">
-                <label class="form-check-label" for="strategy2">Strategy 2</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="strategy" id="strategy3" value="strategy3">
-                <label class="form-check-label" for="strategy3">---</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="strategy" id="strategy4" value="strategy4">
-                <label class="form-check-label" for="strategy4">---</label>
-            </div>
+            {% endfor %}
         </form>
     </div>
 </div>
