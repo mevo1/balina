@@ -5,12 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'img/whale.png' %}">
+    <link rel="icon" href="{% static 'accountapp/assets/img/logo1.jpg' %}">
     {% block css_files %} {% endblock %}
-    <title>Balina Trade</title>
+    <title>{% block title %}Balina Yatırım{% endblock %}</title>
+    {% block links %} {% endblock %}
+
 </head>
 <body>
+
     {% block topbar %}
     
     {% endblock %}
@@ -19,7 +21,11 @@
 
     {% endblock %}
 
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block endpage %}
+
+    {% endblock %}
+
     {% block js_files %} {% endblock %}
+
 </body>
 </html>

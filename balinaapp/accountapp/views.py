@@ -73,3 +73,15 @@ def register_request(request):
 def logout_request(request):
     logout(request)
     return redirect("intro-page")
+
+def intropage(request):
+    return render(request, 'accountapp/intropage.html')
+
+def how_to_use(request):
+    return render(request, 'accountapp/how_to_use.html')
+
+def premium(request):
+    return render(request, 'accountapp/premium.html')
+
+def about(request):
+    return render(request, 'accountapp/about.html')
