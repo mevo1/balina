@@ -153,28 +153,29 @@ function plot_main_graph(data){
     // Highcharts ile çizim
     Highcharts.stockChart('chart-container', {
         chart: {
-            height: dynamicHeight // Grafiğin yüksekliği burada ayarlanır
+            height: dynamicHeight,
+            backgroundColor: '#171b26' // Arka plan rengini buraya ekliyoruz
         },
         rangeSelector: {
             selected: 1
         },
-        title: null,//{text: traceList[0].name},
+        title: null,
         series: [{
             type: traceList[0].type,
             name: traceList[0].name,
             data: formattedData,
-            upColor: 'green',  // Yükseliş mumlarının rengi
-            color: 'red',      // Düşüş mumlarının rengi
-            lineColor: 'black', // Mumların dış kenar çizgi rengi
+            upColor: '#36f736',
+            color: '#ff3333',
+            lineColor: '#333333',
             tooltip: {
                 valueDecimals: 2
             },
             dataGrouping: {
-                enabled: false // Veri birleştirme devre dışı bırakıldı
+                enabled: false
             }
         }]
     });
-}
+}    
 
 function plot_with_indicator() {
     if (traceList.length === 0) {
@@ -208,40 +209,9 @@ function plot_with_indicator() {
         const mainChartInstance = Highcharts.stockChart('main-chart', {
             chart: {
                 height: dynamicHeight,
-                
-                // PAN VE ZOOM OPTİMİZASYONU
-                events: {
-                    selection: function (event) {
-                        if (event.xAxis) {
-                            const min = event.xAxis[0].min;
-                            const max = event.xAxis[0].max;
-                            //console.log("Selection event triggered. Min:", min, "Max:", max);
-        
-                            // Diğer grafiklere yansıtma
-                            charts.forEach(chart => {
-                                if (chart !== this) {
-                                    chart.xAxis[0].setExtremes(min, max, true, false);
-                                }
-                            });
-                        }
-                        return false; // Varsayılan davranışı engelle
-                    }
-                }
+                backgroundColor: '#1e1e1e' // Arka plan rengi
             },
-            xAxis: {
-                events: {
-                    setExtremes: function (event) {
-                        //console.log("setExtremes triggered. Min:", event.min, "Max:", event.max);
-                        // Diğer grafiklere yansıtma
-                        charts.forEach(chart => {
-                            if (chart !== this.chart) {
-                                chart.xAxis[0].setExtremes(event.min, event.max, true, false);
-                            }
-                        });
-                    }
-                }
-            },
-            title: null, //{ text: 'Main Graph' },
+            title: null,
             series: trueGraphTraces.map(trace => {
                 if (trace.type === 'candlestick') {
                     return {
@@ -254,12 +224,10 @@ function plot_with_indicator() {
                             trace.low[index],
                             trace.close[index]
                         ]),
-                        upColor: 'green',  // Yükseliş mumlarının rengi
-                        color: 'red',      // Düşüş mumlarının rengi
-                        lineColor: 'black', // Mumların dış kenar çizgi rengi
-                        dataGrouping: {
-                            enabled: false // Veri birleştirme devre dışı bırakıldı
-                        }
+                        upColor: 'green',
+                        color: 'red',
+                        lineColor: 'black',
+                        dataGrouping: { enabled: false }
                     };
                 } else {
                     return {
@@ -275,6 +243,7 @@ function plot_with_indicator() {
                 }
             })
         });
+        
 
         charts.push(mainChartInstance);
 
@@ -287,45 +256,25 @@ function plot_with_indicator() {
             const subChartInstance = Highcharts.chart(`sub-chart-${index + 1}`, {
                 chart: {
                     height: 200,
-
-                    // PAN VE ZOOM OPTİMİZASYONU
-                    events: {
-                        selection: function (event) {
-                            if (event.xAxis) {
-                                const min = event.xAxis[0].min;
-                                const max = event.xAxis[0].max;
-
-                                // Diğer grafiklerde zoom'u senkronize et
-                                charts.forEach(chart => {
-                                    if (chart !== this) {
-                                        chart.xAxis[0].setExtremes(min, max, true, false);
-                                    }
-                                });
-                            }
-                            return false; // Default zoom davranışını devre dışı bırak
-                        }
-                    }
-
+                    backgroundColor: '#1e1e1e' // Arka plan rengi
                 },
-                title: null,//{ text: `Sub Indicator ${index + 1}` },
+                title: null,
                 yAxis: {
-                    min: 0, // Minimum y değeri (örneğin, 0)
-                    max: 100, // Maksimum y değeri (örneğin, 100)
-                    //title: { text: 'Y Değeri' }
+                    min: 0,
+                    max: 100
                 },
-                series: traceGroup.map(trace => {
-                    return {
-                        type: 'line',
-                        name: trace.name,
-                        data: trace.x.map((time, index) => [
-                            new Date(time).getTime(),
-                            trace.y[index]
-                        ]),
-                        color: trace.line?.color || '#000000',
-                        lineWidth: trace.line?.width || 1
-                    };
-                })
+                series: traceGroup.map(trace => ({
+                    type: 'line',
+                    name: trace.name,
+                    data: trace.x.map((time, index) => [
+                        new Date(time).getTime(),
+                        trace.y[index]
+                    ]),
+                    color: trace.line?.color || '#000000',
+                    lineWidth: trace.line?.width || 1
+                }))
             });
+            
 
             charts.push(subChartInstance);
         });

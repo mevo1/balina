@@ -90,7 +90,6 @@ function showAlert(message, type = 'info') {
 
     alertMessage.textContent = message;
 
-    alertBox.className = "";
     alertBox.classList.add("visible"); // Türüne göre sınıf ekle (success, warning, info vb.)
     alertBox.classList.add(type); // Türüne göre sınıf ekle (success, warning, info vb.)
 
@@ -146,4 +145,52 @@ function deleteIndicator(id, event) {
             alert(`An error occurred: ${error.message}`);
         });
     }
+    
+    
 }
+document.addEventListener("DOMContentLoaded", () => {
+    const fullscreenToggle = document.getElementById("fullscreen-toggle");
+    const closeFullscreen = document.getElementById("close-fullscreen");
+    const textarea = document.getElementById("code");
+
+    // Eski stilleri kaydetmek için
+    const defaultStyles = {
+        backgroundColor: textarea.style.backgroundColor || "#1f1f1f", // Varsayılan renk
+        color: textarea.style.color || "white",                   // Varsayılan yazı rengi
+    };
+
+    // Büyütme butonu
+    fullscreenToggle.addEventListener("click", () => {
+        textarea.style.position = "fixed";
+        textarea.style.top = "10%";
+        textarea.style.left = "10%";
+        textarea.style.width = "80%";
+        textarea.style.height = "80vh";
+        textarea.style.zIndex = "1050";
+        textarea.style.backgroundColor = "#1f1f1f"; // Fullscreen siyah arka plan
+        textarea.style.color = "white";           // Fullscreen beyaz yazı
+        textarea.style.boxShadow = "0 0 15px #1f1f1f";
+        closeFullscreen.style.display = "block";  // Kapat butonu görünür
+    });
+
+    
+    // Kapatma butonu
+    closeFullscreen.addEventListener("click", () => {
+        // Stilleri eski hâline döndür
+        textarea.style.position = "";
+        textarea.style.top = "";
+        textarea.style.left = "";
+        textarea.style.width = "";
+        textarea.style.height = "";
+        textarea.style.zIndex = "";
+        textarea.style.boxShadow = "";
+
+        // Varsayılan renkleri geri yükle
+        textarea.style.backgroundColor = defaultStyles.backgroundColor;
+        textarea.style.color = defaultStyles.color;
+
+        closeFullscreen.style.display = "none";
+    });
+});
+
+
