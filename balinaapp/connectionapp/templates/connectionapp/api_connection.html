@@ -4,39 +4,47 @@
 {% block css_files %} 
 <link rel="stylesheet" href="{% static 'homeapp/css/profilestyle.css' %}">
 <link rel="stylesheet" href="{% static 'customizationapp/css/alert.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 {% endblock %} 
 
 {% block topbar %} 
 {% endblock %}
 
 {% block content %} 
-<div class="ms-5">
-    <div class="main-content">
-        <div class="header">
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header text-center">
             <h2>API Bağlantı Paneli</h2>
         </div>
-        <div class="content">
-            <div class="strategies">
-                <h3>Kripto hesabınızın API bilgilerini girin</h3>
-                <form id="apiForm" action="api" method="POST">
-                    {% csrf_token %}
-                    <input type="text" id="apiName" name="api-name" placeholder="API name" required>
-                    <input type="text" id="apiAddress" name="api-address" placeholder="API address" value="38FaBmpUbUwiL2XNJUy1OXKZxCi5IE3Z6GKlui4r8E800iJQ4b8UMv6ubC840MFO" required>
-                    <input type="password" id="apiSecret" name="api-secretkey" placeholder="API Secretkey" value="KNqOOfL7jEnWxyIkHQOEgI9Cbv4pOqm92FPeFIVPUwAFlQof5JHKdMzlZqnHRBJH" required>
-
-                    <button type="button" class="btn btn-primary" name="action" value="save" onclick="saveApi()">Bağla</button>
-       
-                </form>
-                   
-                <div id="control_balance">
-                    <input type="text" id="total_balance" name="balance-name" placeholder="Bakiyenizi giriniz" required>
+        <div class="card-body">
+            <h3 class="mb-4">Kripto hesabınızın API bilgilerini girin</h3>
+            <form id="apiForm" action="api" method="POST" class="mb-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="apiName" class="form-label">API Name</label>
+                    <input type="text" id="apiName" name="api-name" class="form-control" placeholder="API name" required>
                 </div>
-
-                <div id="connectedMessage">
-                    <p><strong>Bağlı API'ler:</strong></p>
-                    <ul class="sidebar-links-right" id="apiList">
-                    </ul>
+                <div class="mb-3">
+                    <label for="apiAddress" class="form-label">API Address</label>
+                    <input type="text" id="apiAddress" name="api-address" class="form-control" placeholder="API address" value="38FaBmpUbUwiL2XNJUy1OXKZxCi5IE3Z6GKlui4r8E800iJQ4b8UMv6ubC840MFO" required>
                 </div>
+                <div class="mb-3">
+                    <label for="apiSecret" class="form-label">API Secret Key</label>
+                    <input type="password" id="apiSecret" name="api-secretkey" class="form-control" placeholder="API Secret Key" value="KNqOOfL7jEnWxyIkHQOEgI9Cbv4pOqm92FPeFIVPUwAFlQof5JHKdMzlZqnHRBJH" required>
+                </div>
+                <button type="button" class="btn btn-primary" name="action" value="save" onclick="saveApi()">Bağla</button>
+            </form>
+
+            <div id="control_balance" class="mb-4">
+                <label for="total_balance" class="form-label">Bakiye Giriniz</label>
+                <input type="text" id="total_balance" name="balance-name" class="form-control" placeholder="Bakiyenizi giriniz" required>
+            </div>
+
+            <div id="connectedMessage">
+                <p><strong>Bağlı API'ler:</strong></p>
+                <ul class="list-group" id="apiList">
+                    <!-- Bağlı API'ler burada listelenecek -->
+                </ul>
             </div>
         </div>
     </div>
