@@ -2,16 +2,21 @@
 
 <div id="sidebar-left" class="sidebar-left">
     <div class="sidebar-header-left">
-        <img src="{% static 'img/logo1.jpg' %}" alt="Profil Fotoğrafı" class="profile-img" style="width: 140px; height: auto; border-radius: 50%">
+        <img src="{% static 'img/logo1.jpg' %}" alt="Profil Fotoğrafı" class="profile-img" style="width: 100px; height: auto; border-radius: 50%">
         <h4 class="username">{{user.get_full_name|title}}</h4>
     </div>
     <ul class="sidebar-links-left">
-        <li><a href="{% url 'intro-page' %}">Home</a></li>
-        <li><a href="{% url 'profile' %}">Profile</a></li>
-        <li><a href="{% url 'indicators_page' %}">Indicators</a></li>
-        <li><a href="{% url 'strategy_page' %}">Strategies</a></li>
+        <li><a href="{% url 'intro-page' %}">Anasayfa</a></li>
+        <li><a href="{% url 'profile' %}">Profil</a></li>
+        <li><a href="{% url 'indicators_page' %}">İndikatörler</a></li>
+        <li><a href="{% url 'strategy_page' %}">Stratejiler</a></li>
         <li><a href="{% url 'backtest_page' %}">Backtest</a></li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <li><a href="{% url 'sift' %}">Tarama</a></li>
+        <li><a href="{% url 'botting' %}">Bot Çalıştırma</a></li>
+        <li><a href="{% url 'api' %}">API Bağlama</a></li>
+        <li><a href="{% url 'buysell' %}">Kolay Al-Sat</a></li>
+        <li><a href="{% url 'community' %}">Topluluk</a></li>
+        <li><a href="{% url 'logout' %}">Çıkış Yap</a></li>
     </ul>
 </div>
 <button id="toggleSidebar-left" class="toggle-btn-left">☰</button>

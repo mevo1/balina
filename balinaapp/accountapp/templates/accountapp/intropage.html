@@ -9,7 +9,6 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link rel="stylesheet" href="{% static 'css/scroll.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <!-- Vendor CSS Files -->
 {% endblock %}
@@ -21,7 +20,7 @@
 <link href="{% static 'accountapp/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
 <link href="{% static 'accountapp/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
 <link href="{% static 'accountapp/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-<!-- Main CSS File -->
+<link rel="stylesheet" href="{% static 'css/scroll.css' %}">
 <link href="{% static 'accountapp/assets/css/main.css' %}" rel="stylesheet">
 
 {% endblock %}
@@ -99,7 +98,7 @@
                 </p>
   
                 <div class="hero-buttons">
-                  <a href="" class="btn btn-primary me-0 me-sm-2 mx-1">Şimdi Başla</a>
+                  <a href="{% url 'deneme' %}" class="btn btn-primary me-0 me-sm-2 mx-1">Şimdi Başla</a>
                   <a href="https://www.youtube.com/watch?v=Qa8A0qjh27Y" class="btn btn-link mt-2 mt-sm-0 glightbox">
                     <i class="bi bi-play-circle me-1"></i>
                     Tanıtım Videosu
@@ -179,7 +178,7 @@
               <h2 class="about-title">Balina Nedir?</h2>
               <p class="about-description">Balina Tam Donanımlı Bir Trade Uygulamasıdır
                 İndikatörler ve grafikler üzerinde kendi analizlerinizi yapabilir ve kendi indikatörlerinizi oluşturabilirsiniz.
-                Stratejilerinizi alım satım botları ile otomatikleştirin ve takibini yapmak zorunda kalmadan trade edin.
+                Stratejilerinizi alım satım botları ile otomatikleştirebilir ve takibini yapmak zorunda kalmadan trade edebilirsiniz.
               </p>
   
               <div class="row feature-list-wrapper">
@@ -307,7 +306,7 @@
                   </ul>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                  <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="" class="img-fluid">
+                    <img src="{% static 'accountapp/assets/img/str_img.jpeg' %}" class="img-fluid rounded-image">
                 </div>
               </div>
             </div><!-- End tab content item -->
@@ -326,7 +325,7 @@
                   </ul>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                  <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="" class="img-fluid">
+                  <img src="{% static 'accountapp/assets/img/bot-img.jpeg' %}" alt="" class="img-fluid rounded-image">
                 </div>
               </div>
             </div><!-- End tab content item -->
@@ -346,7 +345,7 @@
   
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                  <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="" class="img-fluid">
+                  <img src="{% static 'accountapp/assets/img/bt-img.jpeg' %}" alt="" class="img-fluid rounded-image">
                 </div>
               </div>
             </div><!-- End tab content item -->
@@ -365,7 +364,7 @@
                   </ul>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                  <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="" class="img-fluid">
+                  <img src="{% static 'accountapp/assets/img/ind-img.jpeg' %}" alt="" class="img-fluid rounded-image">
                 </div>
               </div>
             </div><!-- End tab content item -->
@@ -383,7 +382,7 @@
                   </ul>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                  <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="" class="img-fluid">
+                  <img src="{% static 'accountapp/assets/img/sift-img.jpeg' %}" alt="" class="img-fluid rounded-image">
                 </div>
               </div>
             </div><!-- End tab content item -->

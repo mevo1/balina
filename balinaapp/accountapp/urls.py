@@ -10,4 +10,10 @@ urlpatterns = [
     path('how_to_use/', views.how_to_use, name='how_to_use'),
     path('premium/', views.premium, name='premium'),
     path('about/', views.about, name='about'),
+    path('botting/', views.botting, name='botting'),
+    path('sift/', views.sift, name='sift'),
+    path('api/', views.api, name='api'),
+    path('buysell/', views.buysell, name='buysell'),
+    path('community/', views.community, name='community'),
+    path('deneme/', views.deneme, name='deneme'),
 ]

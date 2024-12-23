@@ -20,7 +20,7 @@ def login_request(request):
             return redirect("home/profile")
         else:
             return render(request, "accountapp/loginpage.html", {
-                "error": "username ya da parola yanlış!"
+                "error": "Kullanıcı adı veya parola yanlış!"
             })
     return render(request, "accountapp/loginpage.html")
 
@@ -39,7 +39,7 @@ def register_request(request):
         if password == repassword:
             if User.objects.filter(username=username).exists():
                 return render(request, "accountapp/registerpage.html",{
-                "error": "Username başkası tarafından kullanılıyor!",
+                "error": "Kullanıcı adı zaten mevcut!",
                 "username":username,
                 "email":email,
                 "firstname":firstname,
@@ -85,3 +85,21 @@ def premium(request):
 
 def about(request):
     return render(request, 'accountapp/about.html')
+
+def deneme(request):
+    return render(request, 'accountapp/deneme.html')
+
+def sift(request):
+    return render(request, 'sift.html')
+
+def botting(request):
+    return render(request, 'botting.html')
+
+def api(request):
+    return render(request, 'api.html')
+
+def buysell(request):
+    return render(request, 'buysell.html')
+
+def community(request):
+    return render(request, 'community.html')

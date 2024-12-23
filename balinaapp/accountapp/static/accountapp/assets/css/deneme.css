@@ -1,0 +1,84 @@
+.bg-pattern {
+    background-color: rgb(0, 65, 129);
+    background-image: repeating-linear-gradient(
+      60deg,
+      rgb(0, 0, 0),
+      rgb(0, 0, 0) 10px,
+      rgb(0, 0, 0) 10px,
+      #050d31 20px
+    );
+  }
+  
+
+  .bg-dots {
+    background-color: rgb(3, 25, 48);
+    background-image: radial-gradient(hsl(210, 65%, 51%) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  
+  .bg-diagonal-gradient {
+    background: linear-gradient(
+      135deg,  /* Çapraz açı */
+      rgb(0, 0, 0) ,
+      hwb(202 5% 71%) 60%, /* İlk renk */
+      rgb(7, 21, 46) 60%, /* Yumuşak geçiş için ikinci renk */
+      rgb(0, 0, 0) 100% /* Üçüncü renk */
+    );
+  }
+
+  .bg-gradientt {
+    background: linear-gradient(
+      90deg,  /* Çapraz açı */
+      rgb(0, 0, 0),
+      rgb(0, 30, 80) 30%, /* İlk renk */
+      hsl(204, 100%, 27%) 50%,
+      rgb(0, 30, 80) 70%, /* Yumuşak geçiş için ikinci renk */
+      #000000 100% /* Üçüncü renk */
+    ); /* Gradient renkleri */
+    padding-top: 100px;
+  }
+  
+  form {
+    max-width: 800px; /* Form genişliğini sınırlandırır */
+    margin: 20px auto; /* Ortalanmış konum */
+    padding: 20px;
+    border: 2px solid hwb(0 8% 92%); /* Kenarlık rengi (yeşil ton) */
+    border-radius: 5px; /* Yuvarlatılmış köşeler */
+    background-color: #525252; /* Formun iç arka plan rengi */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+/* Text Kutularının (Input) Görünümü */
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Tam genişlik */
+    max-width: 300px; /* Maksimum genişlik */
+    padding: 10px; /* İç boşluk */
+    margin-bottom: 15px; /* Alt boşluk */
+    border: 2px solid hsl(0, 0%, 19%); /* Kenarlık rengi (yeşil ton) */
+    border-radius: 0px; /* Yuvarlatılmış köşeler */
+    background-color: hsl(0, 0%, 100%); /* Arka plan rengi (beyaz) */
+    color: hwb(0 0% 100%); /* Yazı rengi */
+    font-size: 14px; /* Yazı boyutu */
+}
+
+/* Hover ve Focus Durumu */
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border-color: hsl(0, 0%, 13%); /* Hover kenarlık rengi (daha koyu yeşil) */
+    background-color: #f9fff0; /* Hover arka plan rengi */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: hsl(0, 0%, 15%); /* Focus kenarlık rengi */
+    outline: none; /* Varsayılan outline'ı kaldır */
+    background-color: hsl(0, 0%, 53%); /* Focus arka plan rengi */
+}
+
+.form-heading {
+    color: rgb(130, 184, 255);
+}
+
+  

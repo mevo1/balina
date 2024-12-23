@@ -20,7 +20,7 @@
 <link href="{% static 'accountapp/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
 <link href="{% static 'accountapp/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
 <link href="{% static 'accountapp/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-<!-- Main CSS File -->
+<link rel="stylesheet" href="{% static 'css/scroll.css' %}">
 <link href="{% static 'accountapp/assets/css/main.css' %}" rel="stylesheet">
 
 {% endblock %}
@@ -56,7 +56,7 @@
       </nav>
 
       {% if user.is_authenticated %}
-      <a class="navbar-brand" href="#">, {{ user.first_name |title }}</a>
+              <a class="btn-getstarted" href="{% url 'profile' %}">Profilim</a>
               <a class="btn-getstarted" href="{% url 'logout' %}">Çıkış yap</a>
   {% else %}
               <a class="btn-getstarted" href="{% url 'login' %}">Giriş Yap</a>

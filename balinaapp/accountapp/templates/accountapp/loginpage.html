@@ -3,31 +3,39 @@
 
 {% block css_files %} 
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/css/login.css' %}" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/scroll.css' %}">
  {% endblock %}
 
 
 {% block topbar %}
-<nav class="navbar navbar-dark bg-primary navbar-expand-lg">
-    <div class="container">
-        
-        {% include "accountapp/welcome_to_balina.html" %} <!-- Sol üstteki Welcome to Balina(link) -->
-
-        <ul class="navbar-nav ms-auto">
+<nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <ul class="navbar-nav me-auto">
             <li class="nav-item">
-                <a class="nav-link move-left" href="{% url 'register' %}">Kayıt ol</a>
+                <span class="navbar-text">
+                    <a href="{% url 'intropage' %}" class="fw-bold">Balina'ya</a> Hoşgeldiniz
+                </span>
             </li>
         </ul>
+        <div class="d-flex align-items-center">
+            <span class="navbar-text me-2" style="color: lightgrey; font-size: 0.8rem;">Henüz bir hesabın yoksa</span>
+            <a class="nav-link" href="{% url 'register' %}" style="text-decoration: underline;">Kayıt ol</a>
+        </div>
     </div>
 </nav>
+
 {% endblock %}
 
 {% block content %}
+
 <div class="container mt-5">
     <!-- Kullanıcı Giriş Formu -->
     <div class="row">
+        <div class="d-flex justify-content-center">
         <div class="col-md-6">
-            <h2>Login</h2>
-            <hr>
+            <h3 class="form-heading">Giriş Yap</h3>
             <form action="{% url "login" %}" method="POST">
                 {% csrf_token %}
                 {% if error %}
@@ -36,49 +44,29 @@
                 </div>
                 {% endif %}
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Kullanıcı adı</label>
                     <input type="text" class="form-control" name="username">
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Şifre</label>
                     <input type="password" class="form-control" name="password">
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember_me">
+                    <label class="form-check-label" for="rememberMe" style="color:hsl(0, 0.00%, 100.00%);">Beni hatırla</label>
+                </div>
+                <div class="mb-3">
+                    <a href="{% url 'login' %}" style="color:#61a6bb" onmouseout="this.style.color=#002b53">Şifremi Unuttum</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Giriş yap</button>
             </form>
-        </div>
 
-        <!-- Kullanıcı İstatistikleri Modülü -->
-        <div class="col-md-3 statistics-module">
-            <h2>User Statistics</h2>
-            <div class="row">
-                <div class="col-md-12 mb-3 ">
-                    <div class="card text-white bg-info">
-                        <div class="card-body">
-                            <h6 class="card-title">Total Users</h6>
-                            <p class="card-text display-6">1,234</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 mb-3">
-                    <div class="card text-white bg-success">
-                        <div class="card-body">
-                            <h6 class="card-title">Active Users</h6>
-                            <p class="card-text display-6">567</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 mb-3">
-                    <div class="card text-white bg-warning">
-                        <div class="card-body">
-                            <h6 class="card-title">Users Profited Last Month</h6>
-                            <p class="card-text display-6">566</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
+    </div>
 </div>
+<div id="follower">🐳</div>
 {% endblock %}
 
-
+{% block js_files %}
+<script src="{% static 'accountapp/assets/js/login-fallower.js' %}"></script> {% endblock %}
