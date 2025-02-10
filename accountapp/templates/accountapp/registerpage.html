@@ -44,36 +44,36 @@
                             {% endif %}
                             <div class="mb-3">
                                 <label for="username" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Kullanıcı Adı</label>
-                                <input type="text" class="form-control" name="username" value="{{username}}">
+                                <input type="text" placeholder="Kullanıcı Adı" class="form-control" name="username" value="{{username}}">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Mail Adresi</label>
-                                <input type="text" class="form-control" name="email" value="{{email}}">
+                                <input type="text" placeholder="Mail Adresi" class="form-control" name="email" value="{{email}}">
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="firstname" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">İsim</label>
-                                    <input type="text" class="form-control" name="firstname" value="{{firstname}}">
+                                    <input type="text" placeholder="İsim" class="form-control" name="firstname" value="{{firstname}}">
                                 </div>
                                 <div class="col">
                                     <label for="lastname" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Soyisim</label>
-                                    <input type="text" class="form-control" name="lastname" value="{{lastname}}">
+                                    <input type="text" placeholder="Soyisim" class="form-control" name="lastname" value="{{lastname}}">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="password" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Şifre</label>
-                                    <input type="password" class="form-control" name="password">
+                                    <input type="password" placeholder="Şifre" class="form-control" name="password">
                                 </div>
                                 <div class="col">
                                     <label for="repassword" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Şifre Tekrar</label>
-                                    <input type="password" class="form-control" name="repassword">
+                                    <input type="password" placeholder="Şifre Tekrar" class="form-control" name="repassword">
                                 </div>
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="terms" name="terms">
                                 <label class="form-check-label" for="terms" style="color:hsl(0, 0.00%, 100.00%);">
-                                    <a href="{% url 'register' %}" style="color:#61a6bb">Kullanıcı Sözleşmesi</a>'ni okudum ve onaylıyorum
+                                    <a href="{% url 'register' %}" class="forgot-password">Kullanıcı Sözleşmesi</a>'ni okudum ve onaylıyorum
                                 </label>
                             </div>
                             <div class="mb-3"></div>
@@ -83,7 +83,10 @@
             </div>
         </div>
     </div>
-    <div id="followereg">🐳</div>
+    <div id="followereg"><img src="{% static 'img/cross-regular-24.png' %}"></div>
+    <audio id="gunshot-sound">
+        <source src="{% static 'sounds/gunshot.mp3' %}" type="audio/mp3">
+    </audio>
 
 {% endblock %}
 
