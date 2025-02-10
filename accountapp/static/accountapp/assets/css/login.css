@@ -1,119 +1,126 @@
 .custom-navbar {
-        background-color: hsl(0, 0%, 2%); /* İstediğiniz rengi buraya yazabilirsiniz */
-    }
+    background-color: hsl(0, 0%, 2%);
+}
 
-    .custom-navbar .nav-link {
-        color: hwb(0 45% 55%); /* Menü bağlantı rengini beyaz yaptık */
-    }
+.custom-navbar .nav-link {
+    color: hwb(0 45% 55%);
+}
 
-    .custom-navbar .nav-link:hover {
-        color: hsl(0, 0%, 100%); /* Hover durumunda bağlantı rengi */
-    }
+.custom-navbar .nav-link:hover {
+    color: hsl(0, 0%, 100%);
+}
 
-    .custom-navbar .navbar-text {
-        color: #ffffff; /* "Balina'ya Hoşgeldiniz" yazı rengi */
-    }
+.custom-navbar .navbar-text {
+    color: #ffffff;
+}
 
-    .custom-navbar .navbar-text a {
-        color: #00779b;
-        text-decoration: none;
-    }
+.custom-navbar .navbar-text a {
+    color: #00779b;
+    text-decoration: none;
+}
 
-    .custom-navbar .navbar-text a:hover {
-        color: hwb(221 0% 59%); /* Hover durumunda "Balina'ya" bağlantı rengi */
-    }
+.custom-navbar .navbar-text a:hover {
+    color: hwb(221 0% 59%);
+}
 
+* {
+    cursor: none !important;
+}
 
-    /* Sayfanın Arka Plan Rengi */
-    * {
-        cursor: none !important;
-    }
-    
-    input, textarea {
-        caret-color: transparent;
-        cursor: none;
-    }
-    body {
-    /*background: url('/static/img/introbg.jpeg') no-repeat center center fixed;*/
+input, textarea {
+    caret-color: transparent;
+    cursor: none;
+}
+
+body {
     background: linear-gradient(
-        135deg,  /* Çapraz açı */
-        rgb(0, 0, 0) ,
-        rgb(0, 39, 83) 65%, /* İlk renk */
-        #031636 65%, /* Yumuşak geçiş için ikinci renk */
-        rgb(0, 0, 0) 100% /* Üçüncü renk */
-      );
-    background-attachment: fixed; /* Gradient'in kaydırmada sabit kalmasını sağlar */
-    background-repeat: no-repeat; /* Gradient'in tekrar etmesini engeller */
-    background-size: cover; /* Gradient tüm alanı kapsar */
+        135deg,
+        rgb(0, 0, 0),
+        rgb(0, 39, 83) 65%,
+        #031636 65%,
+        rgb(0, 0, 0) 100%
+    );
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
     position: relative;
     margin: 0;
     padding: 0;
     height: 100%;
 }
 
-
-
-/* Formun Görünümü */
+/* Giriş Formunun Arka Planını Yarı Saydam Yap */
 form {
-    max-width: 800px; /* Form genişliğini sınırlandırır */
-    margin: 20px auto; /* Ortalanmış konum */
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
-     /* border: 2px solid hwb(0 8% 92%);Kenarlık rengi (yeşil ton) */
-    border-radius: 5px; /* Yuvarlatılmış köşeler */
-    background-color: #080808; /* Formun iç arka plan rengi */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+    border-radius: 15px; /* Daha yuvarlak köşeler */
+    background: #ffffff00; /* Daha açık yarı saydam arka plan */
+    backdrop-filter: blur(15px); /* Daha belirgin buğulu efekt */
+    -webkit-backdrop-filter: blur(15px); /* Safari desteği */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3); /* Daha belirgin gölge efekti */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Hafif beyaz kenarlık */
 }
+
+
 
 /* Text Kutularının (Input) Görünümü */
 input[type="text"],
 input[type="password"] {
-    width: 100%; /* Tam genişlik */
-    max-width: 300px; /* Maksimum genişlik */
-    padding: 10px; /* İç boşluk */
-    margin-bottom: 15px; /* Alt boşluk */
-    border: 2px solid hsl(0, 0%, 19%); /* Kenarlık rengi (yeşil ton) */
-    border-radius: 0px; /* Yuvarlatılmış köşeler */
-    background-color: hsl(0, 0%, 100%); /* Arka plan rengi (beyaz) */
-    color: hwb(0 0% 100%); /* Yazı rengi */
-    font-size: 14px; /* Yazı boyutu */
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid hsl(0, 0%, 100%);
+    border-radius: 0px;
+    background-color: hsl(0, 0%, 100%);
+    color: hwb(0 0% 100%);
+    font-size: 14px;
 }
 
 /* Hover ve Focus Durumu */
 input[type="text"]:hover,
 input[type="password"]:hover {
-    border-color: hsl(0, 0%, 13%); /* Hover kenarlık rengi (daha koyu yeşil) */
-    background-color: #f9fff0; /* Hover arka plan rengi */
+    border-color: hwb(0 51% 49%);
+    background-color: #f9fff0;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-    border-color: hsl(0, 0%, 15%); /* Focus kenarlık rengi */
-    outline: none; /* Varsayılan outline'ı kaldır */
-    background-color: hsl(0, 0%, 53%); /* Focus arka plan rengi */
+    border-color: hsl(0, 0%, 15%);
+    outline: none;
+    background-color: hwb(0 79% 21%);
 }
 
 /* "Login" Butonu */
 button[type="submit"] {
-    background-color: hwb(197 0% 27%); /* Buton arka plan rengi */
-    color: #000000; /* Yazı rengi */
+    background-color: hwb(197 0% 27%);
+    color: #000000;
     padding: 10px;
     border: none;
-    border-radius: 20px; /* Yuvarlatılmış köşeler */
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 16px; /* Yazı boyutu */
-    width: 20%; /* Tam genişlik */
-    max-width: 300px; /* Maksimum genişlik */
+    font-size: 16px;
+    width: 20%;
+    max-width: 300px;
 }
 
 button[type="submit"]:hover {
-    background-color: hwb(212 11% 59%); /* Hover durumunda arka plan rengi */
+    background-color: hwb(212 11% 59%);
 }
 
 .form-heading {
-    color: rgb(130, 184, 255);
+    color: #ffffff;
 }
 
+.forgot-password {
+    color: #61a6bb;
+    transition: color 0.3s ease-in-out;
+}
 
+.forgot-password:hover {
+    color: #002b53;
+}
 
 #follower {
     position: fixed;
@@ -137,5 +144,26 @@ button[type="submit"]:hover {
     font-size: 20px;
     pointer-events: none;  /*Fare tıklamalarından etkilenmez             <div id="follower"> </div>       */
     transition: transform 0.000000001s ease; /* Hareketin yumuşak görünmesi için */
+}
+
+.bullet-hole {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url("/static/img/bullet-hole.png") no-repeat center center;
+    background-size: contain;
+    pointer-events: none;
+    opacity: 1;
+    animation: fadeOut 10s forwards;
+    z-index: 9999; /* Üstte gözükmesi için */
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 

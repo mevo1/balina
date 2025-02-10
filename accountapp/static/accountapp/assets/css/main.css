@@ -2330,6 +2330,20 @@ section,
   border: 2px solid hsl(194, 100%, 8%); /* Opsiyonel: Çerçeve ekler */
 }
 
+@keyframes rotate {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+.rotating-img {
+  width: 500px; /* Görsel boyutunu ihtiyacına göre ayarla */
+  height: auto;
+  animation: rotate 60s linear infinite; /* Sonsuz döngüde 5 saniyede bir tam tur döner */
+}
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
