@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block links %}
+  <link href="{% static 'accountapp/assets/img/logo1.jpg' %}" rel="icon">
+  <link href="static/accountapp/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<!-- Vendor CSS Files -->
+{% endblock %}
+
+
+{% block css_files %}
+
+<link href="{% static 'accountapp/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/scroll.css' %}">
+<link href="{% static 'accountapp/assets/css/main.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/css/deneme.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block topbar %}
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'intropage' %}" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="Logo" class="whaleavatar">
+        <h1 class="sitename">Balina Yatırım</h1>
+      </a>
+<!-- # ile aynı sayfadaki bölge bağlantıları yapılıyor-->
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'intropage' %}">Anasayfa</a></li>
+          <li><a href="{% url 'how_to_use' %}">Nasıl Kullanılır?</a></li>
+          <li><a href="{% url 'premium' %}">Premium Üyelik</a></li>
+          <li><a href="{% url 'about' %}" >Hakkında</a></li>
+          <li class="dropdown"><a href="#"><span>Özellikler</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#features-tab-1">Strateji oluşturma </a></li>
+              <li><a href="#features-tab-2">Otomatik alım-satım botları</a></li>
+              <li><a href="#features-tab-3">Backtest yapma</a></li>
+              <li><a href="#features-tab-4">İndikatör ekleme</a></li>
+              <li><a href="#features-tab-5">Strateji taraması</a></li>
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      {% if user.is_authenticated %}
+              <a class="btn-getstarted" href="{% url 'profile' %}">Profilim</a>
+              <a class="btn-getstarted" href="{% url 'logout' %}">Çıkış yap</a>
+  {% else %}
+              <a class="btn-getstarted" href="{% url 'login' %}">Giriş Yap</a>
+              <a class="btn-getstarted" href="{% url 'register' %}">Kayıt Ol</a>
+          
+  {% endif %}
+
+    </div>
+  </header>
+{% endblock %}
+
+
+{% block content %}
+<div class="bg-pattern" style="height: 100vh;">
+
+  </div>
+  
+{% endblock %}
+
+
+{% block js_files %}
+<script src="{% static 'accountapp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+<!-- Main JS File -->
+<script src="{% static 'accountapp/assets/js/main.js' %}"></script>
+{% endblock %}
+
+

@@ -1,0 +1,200 @@
+<div class="container my-5">
+  <!-- Portfolio Summary Section -->
+  <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+          <h5>Portfolio Summary</h5>
+      </div>
+      <div class="card-body">
+          <div class="row">
+              <div class="col-md-6">
+                  <p><strong>Last Portfolio Size:</strong> <span id="portfolio-size">0 USD</span></p>
+                  <p><strong>Total Profit/Loss:</strong> <span id="total-pnl">0 USD</span></p>
+              </div>
+              <div class="col-md-6">
+                  <p><strong>Total Number of Trades:</strong> <span id="total-trades">0 Times</span></p>
+                  <p><strong>Winning Trades:</strong> <span id="winning-trades">0 Times</span></p>
+                  <p><strong>Losing Trades:</strong> <span id="losing-trades">0 Times</span></p>
+                  <p><strong>Success Rate:</strong> <span id="success-rate">100 %</span></p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Graphs Section -->
+  <div class="card">
+      <div class="card-header bg-secondary text-white">
+          <h5>Graph</h5>
+      </div>
+      <div class="card-body">
+          <div id="profitGraph" class="mb-4" style="height: 800px;"></div>
+      </div>
+  </div>
+  <div class="card mt-5">
+      <div class="card-header bg-secondary text-white">
+          <h5>Graph</h5>
+      </div>
+      <div class="card-body">
+          <div id="process_list" class="mb-4" style="height: 600px;"></div>
+      </div>
+  </div>
+</div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const backtestData = JSON.parse(sessionStorage.getItem('backtestResult'));
+
+      if (backtestData) {
+          // HTML'ye verileri yerleştir
+          document.getElementById('portfolio-size').innerText = `${backtestData.last_margin.toFixed(2)} USD`;
+          document.getElementById('total-pnl').innerText = `${backtestData.total_return.toFixed(2)} USD`;
+          document.getElementById('total-trades').innerText = `${backtestData.process_count} Times`;
+          document.getElementById('winning-trades').innerText = `${backtestData.profit_process_count} Times`;
+          document.getElementById('losing-trades').innerText = `${backtestData.loss_process_count} Times`;
+          document.getElementById('success-rate').innerText = `${backtestData.success_rate.toFixed(2)} %`;
+
+          // NaN değerlerini bir sonraki değerle doldurma fonksiyonu
+          function fillMissingValues(data, key) {
+              for (let i = 0; i < data.length; i++) {
+                  if (isNaN(data[i][key]) || data[i][key] === null) {
+                      let nextValid = data.slice(i).find(item => !isNaN(item[key]) && item[key] !== null);
+                      if (nextValid) {
+                          data[i][key] = nextValid[key]; // Bir sonraki geçerli değeri kullan
+                      } else if (i > 0) {
+                          data[i][key] = data[i - 1][key]; // Son geçerli değeri kullan
+                      }
+                  }
+              }
+              return data;
+          }
+
+          // profit_graph ve stock_graph verilerini parse et ve doldur
+          let profitGraphData = JSON.parse(backtestData.profit_graph.replace(/NaN/g, "null"));
+          let stockGraphData = JSON.parse(backtestData.stock_graph.replace(/NaN/g, "null"));
+          let process_list = JSON.parse(backtestData.process_list.replace(/NaN/g, "null"));
+
+          profitGraphData = fillMissingValues(profitGraphData, 'profit_graph');
+          stockGraphData = fillMissingValues(stockGraphData, 'stock_graph');
+          process_list = fillMissingValues(process_list, 'process_list');
+          console.log("process_list")
+          console.log(process_list)
+          // Highcharts ile grafik çizimi
+          Highcharts.chart('profitGraph', {
+              chart: {
+                  type: 'area',
+                  animation: {
+                      duration: 1500
+                  },
+                  zoomType: 'x',
+                  panning: true,
+                  panKey: 'shift',
+              },
+              title: {
+                  text: 'Profit & Stock Graphs'
+              },
+              xAxis: {
+                  categories: profitGraphData.map(item => item.time),
+                  title: {
+                      text: 'Time'
+                  }
+              },
+              yAxis: {
+                  title: {
+                      text: 'Value'
+                  },
+                  min: Math.min(...profitGraphData.map(item => item.profit_graph), ...stockGraphData.map(item => item.stock_graph))
+              },
+              series: [
+                  {
+                      name: 'Profit Graph',
+                      data: profitGraphData.map(item => item.profit_graph),
+                      color: {
+                          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 0 },
+                          stops: [
+                              [0, 'rgba(0, 153, 255, 0.5)'],
+                              [1, 'rgb(0, 110, 255)']
+                          ]
+                      },
+                      fillColor: {
+                          linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                          stops: [
+                              [0, 'rgba(0, 162, 255, 0.3)'],
+                              [1, 'rgba(0, 153, 255, 0)']
+                          ]
+                      },
+                      marker: {
+                          enabled: false // Marker'ları devre dışı bırak
+                      }
+                  },
+                  {
+                      name: 'Stock Graph',
+                      data: stockGraphData.map(item => item.stock_graph),
+                      color: {
+                          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 0 },
+                          stops: [
+                              [0, 'rgba(255, 0, 0, 0.5)'],
+                              [1, 'rgba(255, 0, 0, 1)']
+                          ]
+                      },
+                      fillColor: {
+                          linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                          stops: [
+                              [0, 'rgba(255, 0, 0, 0.3)'],
+                              [1, 'rgba(255, 0, 0, 0)']
+                          ]
+                      },
+                      marker: {
+                          enabled: false // Marker'ları devre dışı bırak
+                      }
+                  }
+              ],
+              tooltip: {
+                  shared: true,
+                  crosshairs: true
+              }
+          });
+          Highcharts.chart('process_list', {
+            chart: {
+                type: 'column',
+                animation: {
+                    duration: 1500
+                },
+                zoomType: 'x',
+                panning: true,
+                panKey: 'shift',
+            },
+            title: {
+                text: 'Process List Graphs'
+            },
+            xAxis: {
+                categories: process_list.map(item => item.time),
+                title: {
+                    text: 'Time'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                min: 0 // Eğer minimum değer belirlemek isterseniz ayarlayın
+            },
+            series: Object.keys(process_list[0]).filter(key => key !== 'time').map(column => ({
+                name: column,
+                data: process_list.map(item => item[column]),
+                marker: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: `<span style="color:{series.color}">\u25CF</span> {series.name}: <b>{point.y}</b><br/>`
+                }
+            })),
+            tooltip: {
+                shared: true,
+                crosshairs: true
+            }
+        });
+      } else {
+          alert("Veri bulunamadı, lütfen tekrar deneyin.");
+      }
+  });
+</script>

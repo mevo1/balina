@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %} 
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/css/login.css' %}" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/scroll.css' %}">
+ {% endblock %}
+
+
+{% block topbar %}
+<nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <span class="navbar-text">
+                    <a href="{% url 'intropage' %}" class="fw-bold">Balina'ya</a> Hoşgeldiniz
+                </span>
+            </li>
+        </ul>
+        <div class="d-flex align-items-center">
+            <span class="navbar-text me-2" style="color: lightgrey; font-size: 0.8rem;">Henüz bir hesabın yoksa</span>
+            <a class="nav-link" href="{% url 'register' %}" style="text-decoration: underline;">Kayıt ol</a>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <!-- Kullanıcı Giriş Formu -->
+    <div class="row">
+        <div class="d-flex justify-content-center">
+        <div class="col-md-6">
+            <h3 class="form-heading">Giriş Yap</h3>
+            <form action="{% url "login" %}" method="POST">
+                {% csrf_token %}
+                {% if error %}
+                <div class ="alert alert-danger">
+                    {{error}}
+                </div>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="username" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Kullanıcı adı</label>
+                    <input type="text" class="form-control" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label" style="color:hsl(0, 0.00%, 100.00%);">Şifre</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember_me">
+                    <label class="form-check-label" for="rememberMe" style="color:hsl(0, 0.00%, 100.00%);">Beni hatırla</label>
+                </div>
+                <div class="mb-3">
+                    <a href="{% url 'login' %}" style="color:#61a6bb" onmouseout="this.style.color=#002b53">Şifremi Unuttum</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Giriş yap</button>
+            </form>
+
+        </div>
+    </div>
+    </div>
+</div>
+<div id="follower">🐳</div>
+{% endblock %}
+
+{% block js_files %}
+<script src="{% static 'accountapp/assets/js/login-fallower.js' %}"></script> {% endblock %}

@@ -1,0 +1,16 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Coins</h5>
+    </div>
+    <div class="card-body">
+        <form id="coins-form">
+            {% csrf_token %}
+            {% for coin in coins%}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id='{{coin.symbol}}' value='{{coin.name}}'>
+                <label class="form-check-label" for='{{coin.symbol}}'>{{coin.name}}</label>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+</div>

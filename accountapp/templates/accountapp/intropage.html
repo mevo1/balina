@@ -1,0 +1,469 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block links %}
+  <link href="{% static 'accountapp/assets/img/logo1.jpg' %}" rel="icon">
+  <link href="static/accountapp/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<!-- Vendor CSS Files -->
+{% endblock %}
+
+
+{% block css_files %}
+
+<link href="{% static 'accountapp/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+<link href="{% static 'accountapp/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/scroll.css' %}">
+<link href="{% static 'accountapp/assets/css/main.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block topbar %}
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'intropage' %}" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="Logo" class="whaleavatar">
+        <h1 class="sitename">Balina Yatırım</h1>
+      </a>
+<!-- # ile aynı sayfadaki bölge bağlantıları yapılıyor-->
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'intropage' %}" class="active">Anasayfa</a></li>
+          <li><a href="{% url 'how_to_use' %}">Nasıl Kullanılır?</a></li>
+          <li><a href="{% url 'premium' %}">Premium Üyelik</a></li>
+          <li><a href="{% url 'about' %}">Hakkında</a></li>
+          <li class="dropdown"><a href="#"><span>Özellikler</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#features-tab-1">Strateji oluşturma</a></li>
+              <li><a href="#features-tab-2">Otomatik Alım Satım Botu</a></li>
+              <li><a href="#features-tab-3">Backtest yapma</a></li>
+              <li><a href="#features-tab-4">İndikatör ekleme</a></li>
+              <li><a href="#features-tab-5">Strateji taraması</a></li>
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      {% if user.is_authenticated %}
+              <a class="btn-getstarted" href="{% url 'profile' %}">Profilim</a>
+              <a class="btn-getstarted" href="{% url 'logout' %}">Çıkış yap</a>
+  {% else %}
+              <a class="btn-getstarted" href="{% url 'login' %}">Giriş Yap</a>
+              <a class="btn-getstarted" href="{% url 'register' %}">Kayıt Ol</a>
+          
+  {% endif %}
+  
+
+    </div>
+  </header>
+{% endblock %}
+
+
+
+{% block content %}
+    <main class="main">
+  
+      <!-- Hero Section -->
+      <section id="hero" class="hero section">
+  
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+  
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+                <div class="company-badge mb-4">
+                  <i class="bi bi-gear-fill me-2"></i>
+                  Otomatik Alım Satım Robotu
+                </div>
+                <h1 class="mb-4">
+                  Balina ile<br>
+                  eşsiz stratejiler oluştur <br>
+                  <span class="accent-text">Kar etmeye başla</span>
+                </h1>
+                
+                <p class="mb-4 mb-md-5">
+                  Balina ile kendinize has stratejiler oluşturabilir, oluşturduğunuz stratejilerin geçmişte gösterdikleri performansı görebilir ve size tanıdığımız özel imkanlar ile karlı hale getirebilirsiniz.
+                  Balina Tarama özelliği ile oluşturduğunuz stratejilerin o an verdiği sinyalleri görebilirsiniz.  
+                </p>
+  
+                <div class="hero-buttons">
+                  <a href="{% url 'deneme' %}" class="btn btn-primary me-0 me-sm-2 mx-1">Şimdi Başla</a>
+                  <a href="https://www.youtube.com/watch?v=Qa8A0qjh27Y" class="btn btn-link mt-2 mt-sm-0 glightbox">
+                    <i class="bi bi-play-circle me-1"></i>
+                    Tanıtım Videosu
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
+                  <img src="{% static 'img/logo5.png' %}" alt="Hero Image" class="img-fluid">
+              </div>
+            </div>
+            
+          <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
+            <div class="col-lg-3 col-md-6">
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="bi bi-person"></i>
+                </div>
+                <div class="stat-content">
+                  <h4>Kullanıcı Hesabı Sayısı</h4>
+                  <p class="mb-0">şimdilik 0</p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6">
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="bi bi-person-bounding-box"></i>
+                </div>
+                <div class="stat-content">
+                  <h4>Aktif Trade Eden Kullanıcılar</h4>
+                  <p class="mb-0">şimdilik 0</p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6">
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="bi bi-graph-up"></i>
+                </div>
+                <div class="stat-content">
+                  <h4>Son Ayda Kar Eden Kullanıcılar</h4>
+                  <p class="mb-0">şimdilik 0</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="bi bi-journal-text"></i>
+                </div>
+                <div class="stat-content">
+                  <h4>Toplam Strateji Sayısı</h4>
+                  <p class="mb-0">şimdilik 0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </section><!-- /Hero Section -->
+  
+      <!-- About Section -->
+      <section id="about" class="about section">
+  
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+  
+          <div class="row gy-4 align-items-center justify-content-between">
+  
+            <div class="col-xl-5" data-aos="fade-up" data-aos-delay="200">
+              <span class="about-meta">Daha Fazla</span>
+              <h2 class="about-title">Balina Nedir?</h2>
+              <p class="about-description">Balina Tam Donanımlı Bir Trade Uygulamasıdır
+                İndikatörler ve grafikler üzerinde kendi analizlerinizi yapabilir ve kendi indikatörlerinizi oluşturabilirsiniz.
+                Stratejilerinizi alım satım botları ile otomatikleştirebilir ve takibini yapmak zorunda kalmadan trade edebilirsiniz.
+              </p>
+  
+              <div class="row feature-list-wrapper">
+                <div class="col-md-6">
+                  <ul class="feature-list">
+                    <li><i class="bi bi-check-circle-fill"></i> Ücretsiz Deneme Sürümü</li>
+                    <li><i class="bi bi-check-circle-fill"></i> Güvenli yatırım </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="feature-list">
+                    <li><i class="bi bi-check-circle-fill"></i> Kolay arayüz</li>
+                    <li><i class="bi bi-check-circle-fill"></i> Hızlı Kullanım</li>
+                  </ul>
+                </div>
+              </div>
+  
+              <div class="info-wrapper">
+                <div class="row gy-4">
+                  <div class="col-lg-5">
+                    <div class="profile d-flex align-items-center gap-3">
+                      <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="Logo" class="profile-image">
+                      <div>
+                        <h4 class="profile-name">Balina Yatırım</h4>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-lg-7">
+                    <div class="contact-info d-flex align-items-center gap-2">
+                      <i class="bi bi-telephone-fill"></i>
+                      <div>
+                        <p class="contact-label">Bize Ulaşın</p>
+                        <p class="contact-number">+90 552 285 34 67</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-xl-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="image-wrapper">
+                <div class="images position-relative" data-aos="zoom-out" data-aos-delay="400">
+  
+                  <img src="{% static 'accountapp/assets/img/bluewhale1.jpg' %}" alt="bluewhale" class="img-fluid main-image rounded-4">
+                  
+                  <img src="{% static 'accountapp/assets/img/img1.jpeg' %}" alt="tablet-image" class="img-fluid small-image rounded-4">
+                </div>
+  
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+      </section><!-- /About Section -->
+  
+      <!-- Features Section -->
+      <section id="features" class="features section">
+  
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Özellikler</h2>
+          <p>Balina'nın Yapabildikleri</p>
+        </div><!-- End Section Title -->
+  
+        <div class="container">
+  
+          <div class="d-flex justify-content-center">
+  
+            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+  
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                  <h4>Strateji oluşturma</h4>
+                </a>
+              </li><!-- End tab nav item -->
+  
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
+                  <h4>Alım Satım Botları</h4>
+                </a><!-- End tab nav item -->
+  
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                  <h4>Backtest Yapma</h4>
+                </a><!-- End tab nav item -->
+  
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-4">
+                  <h4>İndikatör Çizimi</h4>
+                </a>
+              </li>
+              <!-- End tab nav item -->
+  
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                <h4>Tarama</h4>
+              </a>
+            </li>
+  
+            <!-- End tab nav item -->
+  
+            </ul>
+          </div>
+  
+          <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+  
+            <div class="tab-pane fade active show" id="features-tab-1">
+              <div class="row">
+                <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+                  <h3>Strateji Oluşturma</h3>
+                  <p class="fst-italic">
+                    İstediğiniz indikatörü kullanabilir, trend takibi yapabilir ve ya fiyat aksiyon kullanarak stratejinizin algoritmasını hazırlayın.
+  
+                  </p>
+                  <ul>
+                    <li><i class="bi bi-check2-all"></i> <span>Alım Satım bölgelerini saptayan bir algoritma oluşturun ve koda dökün.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Opsiyonel indikatör ayarını kullanarak backtest de en karlı değerleri saptayın.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Oluşturduğunuz stratejileri daha sonra tekrar düzenleyebilir ve silebilirsiniz.</span></li>
+                  </ul>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                    <img src="{% static 'accountapp/assets/img/str_img.jpeg' %}" class="img-fluid rounded-image">
+                </div>
+              </div>
+            </div><!-- End tab content item -->
+  
+            <div class="tab-pane fade" id="features-tab-2">
+              <div class="row">
+                <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+                  <h3>Otomatik Alım Satım Botları</h3>
+                  <p class="fst-italic">
+                    Stratejilerinizi robotlara bağlayarak otomatik hale getirin ve varlıklarınızın takibini yapmadan trade edin.
+                  </p>
+                  <ul>
+                    <li><i class="bi bi-check2-all"></i> <span>Kendi alım satım stratejinizi oluşturun.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Strateji oluşturma sayfasından stratejinizi koda dökün.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Backtest sonuçlarını başarılı bulduğunuz stratejilerde botu başlatın ve kar etmeye başlayın.</span></li>
+                  </ul>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                  <img src="{% static 'accountapp/assets/img/bot-img.jpeg' %}" alt="" class="img-fluid rounded-image">
+                </div>
+              </div>
+            </div><!-- End tab content item -->
+  
+            <div class="tab-pane fade" id="features-tab-3">
+              <div class="row">
+                <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+                  <h3>Backtest Yapma</h3>
+                  <ul>
+                    <p class="fst-italic">
+                      Oluşturduğunuz stratejilerin geçmişte gösterdiği performanslarını görün stratejinizi bu sonuçlara göre düzenleyip daha karlı hale getirin.
+                    </p>
+                    <li><i class="bi bi-check2-all"></i> <span>Oluşturduğunuz stratejiye backtest uygulayın.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Belirli zaman aralıkarındaki kar-zarar durumlarını saptayın.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Komisyon oranı, kaldıraç, TP ve SL noktalarını isteğinize göre düzenleyebilir stratejinizin alım satım noktalarını tarihleriyle görebilirsiniz.</span></li>
+                  </ul>
+  
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                  <img src="{% static 'accountapp/assets/img/bt-img.jpeg' %}" alt="" class="img-fluid rounded-image">
+                </div>
+              </div>
+            </div><!-- End tab content item -->
+  
+            <div class="tab-pane fade" id="features-tab-4">
+              <div class="row">
+                <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+                  <h3>İndikatör Ekleme</h3>
+                  <p class="fst-italic">
+                    Sağladığımız hazır indikatörleri grafiklere ekleyebilir dilerseniz kendi imdikatörlerinizi yazabilirsiniz. Osilatörler, Hareketli ortalamalar ve daha fazlasını ekleyebilir ve çizim yapabilirsiniz. Grafik üzerinde istediğiniz teknik analizi uygulayabilirsiniz.
+                  </p>
+                  <ul>
+                    <li><i class="bi bi-check2-all"></i> <span>indikatör ekleyip grafik üzerinde analiz yapın.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>İstediğiniz kripto varlıkta ve periyotta analiz yapın</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Kaydettiğiniz indikatörleri güncelleyebilirsiniz.</span></li>
+                  </ul>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                  <img src="{% static 'accountapp/assets/img/ind-img.jpeg' %}" alt="" class="img-fluid rounded-image">
+                </div>
+              </div>
+            </div><!-- End tab content item -->
+  
+            <div class="tab-pane fade" id="features-tab-5">
+              <div class="row">
+                <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
+                  <h3>Tarama</h3>
+                  <p class="fst-italic">
+                    Oluşturduğunuz stratejilere tarama yaptırıp o an hangi kripto para üzerinde alım ya da satım sinyali verdiğini görebilirsiniz.
+                  </p>
+                  <ul>
+                    <li><i class="bi bi-check2-all"></i> <span>Farklı periyotlarda tarama yaptırabilirsiniz.</span></li>
+                    <li><i class="bi bi-check2-all"></i> <span>Bir önceki mum kapanışında veya o anlık mumda sinyal veren kripto varlıkları görebilirsiniz.</span></li>
+                  </ul>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                  <img src="{% static 'accountapp/assets/img/sift-img.jpeg' %}" alt="" class="img-fluid rounded-image">
+                </div>
+              </div>
+            </div><!-- End tab content item -->
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /Features Section -->
+  
+    </main>
+    
+{% endblock %}
+
+{% block endpage %}
+<footer id="footer" class="footer">
+
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="intropage.html" class="logo d-flex align-items-center">
+          <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="Logo" class="whaleavatar">
+          <span class="sitename">Balina</span>
+        </a>
+        <div class="footer-contact pt-3">
+          <p>İstanbul/Maltepe</p>
+          <p>Marmara Üni. RTE Külliyesi M4 1. kat tuvaletin karşısındaki cam oda</p>
+          <p class="mt-3"><strong>Phone:</strong> <span>+90 552 285 34 67</span></p>
+          <p><strong>Email:</strong> <span>bilal67bostan67@gmail.com</span></p>
+        </div>
+        <div class="social-links d-flex mt-4">
+          <a href=""><i class="bi bi-twitter-x"></i></a>
+          <a href=""><i class="bi bi-facebook"></i></a>
+          <a href=""><i class="bi bi-instagram"></i></a>
+          <a href=""><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-3 footer-links">
+        <h4>Faydalı Linkler</h4>
+        <ul>
+          <li><a href="{% url 'about' %}">Hakkında</a></li>
+          <li><a href="#">İletişim</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Forum</a></li>
+          <li><a href="#">Yardım</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-3 footer-links">
+        <h4>  </h4>
+        <h4>  </h4>
+        <ul>
+          <li><a href="#">Yasal Uyarı</a></li>
+          <li><a href="#">Sık Sorulan sorular</a></li>
+          <li><a href="#">Topluluk İlkeleri</a></li>
+          <li><a href="#">Kullanım Koşulları</a></li>
+          <li><a href="#">Gizlilik</a></li>
+        </ul>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="container copyright text-center mt-4">
+    <p>© <span>Copyright</span> <strong class="px-1 sitename">Balina Yatırım</strong> <span>All Rights Reserved</span></p>
+    <div class="credits">
+      Designed by <a href="">The Team of Balina Project</a>
+    </div>
+  </div>
+
+</footer>
+{% endblock %}
+
+{% block js_files %}
+<script src="{% static 'accountapp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'accountapp/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+<!-- Main JS File -->
+<script src="{% static 'accountapp/assets/js/main.js' %}"></script>
+{% endblock %}

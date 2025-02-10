@@ -1,0 +1,70 @@
+<div class="card shadow-sm" style="background-color: #181818; color: white;">
+
+    <div class="card-body">
+        <h4 class="card-title text-center mb-4">Add New Indicator</h4>
+        <form id="new-indicator-form" action="indicator" method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3 position-relative">
+                <label for="title" class="form-label">Indicator Title</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    name="title" 
+                    id="indicator-title" 
+                    placeholder="Enter title" 
+                    style="background-color: #1f1f1f; color: white;"
+                    
+                    required>
+            </div>
+            <textarea 
+                class="form-control" 
+                name="code" 
+                id="code" 
+                rows="15" 
+                style="background-color: #1f1f1f; color: white; white-space: nowrap; overflow-x: auto; resize: none;" 
+                required></textarea>
+
+            
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" name="on_graph" id="on_graph">
+                <label class="form-check-label" for="on_graph">Display on Graph</label>
+            </div>
+            <div class="text-center d-flex justify-content-end">
+                <!-- Save Button -->
+                <button type="button" class="btn btn-primary me-2" onclick="saveIndicator()">Save</button>
+                <!-- Fullscreen Button -->
+                <button 
+                type="button" 
+                class="btn btn-outline-secondary d-flex align-items-center justify-content-center" 
+                id="fullscreen-toggle" 
+                title="Fullscreen"
+                style="width: 40px; height: 40px; padding: 0; border-radius: 5px;">
+                <i class="fas fa-expand" style="font-size: 1.2rem;"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen" viewBox="0 0 16 16">
+                    <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"/>
+                </svg>
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Kapatma Butonu (Sayfanın Sağ Üstünde) -->
+
+<button 
+    type="button" 
+    class="btn btn-danger" 
+    id="close-fullscreen" 
+    title="Exit Fullscreen" 
+    style="display: none; position: fixed; top: 50px; right: 110px; z-index: 9999;">
+    <i class="bi bi-x-lg"></i>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+      </svg>
+</button>
+
+

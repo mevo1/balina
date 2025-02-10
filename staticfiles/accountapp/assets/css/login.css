@@ -1,0 +1,141 @@
+.custom-navbar {
+        background-color: hsl(0, 0%, 2%); /* İstediğiniz rengi buraya yazabilirsiniz */
+    }
+
+    .custom-navbar .nav-link {
+        color: hwb(0 45% 55%); /* Menü bağlantı rengini beyaz yaptık */
+    }
+
+    .custom-navbar .nav-link:hover {
+        color: hsl(0, 0%, 100%); /* Hover durumunda bağlantı rengi */
+    }
+
+    .custom-navbar .navbar-text {
+        color: #ffffff; /* "Balina'ya Hoşgeldiniz" yazı rengi */
+    }
+
+    .custom-navbar .navbar-text a {
+        color: #00779b;
+        text-decoration: none;
+    }
+
+    .custom-navbar .navbar-text a:hover {
+        color: hwb(221 0% 59%); /* Hover durumunda "Balina'ya" bağlantı rengi */
+    }
+
+
+    /* Sayfanın Arka Plan Rengi */
+    * {
+        cursor: none !important;
+    }
+    
+    input, textarea {
+        caret-color: transparent;
+        cursor: none;
+    }
+    body {
+    /*background: url('/static/img/introbg.jpeg') no-repeat center center fixed;*/
+    background: linear-gradient(
+        135deg,  /* Çapraz açı */
+        rgb(0, 0, 0) ,
+        rgb(0, 39, 83) 65%, /* İlk renk */
+        #031636 65%, /* Yumuşak geçiş için ikinci renk */
+        rgb(0, 0, 0) 100% /* Üçüncü renk */
+      );
+    background-attachment: fixed; /* Gradient'in kaydırmada sabit kalmasını sağlar */
+    background-repeat: no-repeat; /* Gradient'in tekrar etmesini engeller */
+    background-size: cover; /* Gradient tüm alanı kapsar */
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+
+/* Formun Görünümü */
+form {
+    max-width: 800px; /* Form genişliğini sınırlandırır */
+    margin: 20px auto; /* Ortalanmış konum */
+    padding: 20px;
+     /* border: 2px solid hwb(0 8% 92%);Kenarlık rengi (yeşil ton) */
+    border-radius: 5px; /* Yuvarlatılmış köşeler */
+    background-color: #080808; /* Formun iç arka plan rengi */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+/* Text Kutularının (Input) Görünümü */
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Tam genişlik */
+    max-width: 300px; /* Maksimum genişlik */
+    padding: 10px; /* İç boşluk */
+    margin-bottom: 15px; /* Alt boşluk */
+    border: 2px solid hsl(0, 0%, 19%); /* Kenarlık rengi (yeşil ton) */
+    border-radius: 0px; /* Yuvarlatılmış köşeler */
+    background-color: hsl(0, 0%, 100%); /* Arka plan rengi (beyaz) */
+    color: hwb(0 0% 100%); /* Yazı rengi */
+    font-size: 14px; /* Yazı boyutu */
+}
+
+/* Hover ve Focus Durumu */
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border-color: hsl(0, 0%, 13%); /* Hover kenarlık rengi (daha koyu yeşil) */
+    background-color: #f9fff0; /* Hover arka plan rengi */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: hsl(0, 0%, 15%); /* Focus kenarlık rengi */
+    outline: none; /* Varsayılan outline'ı kaldır */
+    background-color: hsl(0, 0%, 53%); /* Focus arka plan rengi */
+}
+
+/* "Login" Butonu */
+button[type="submit"] {
+    background-color: hwb(197 0% 27%); /* Buton arka plan rengi */
+    color: #000000; /* Yazı rengi */
+    padding: 10px;
+    border: none;
+    border-radius: 20px; /* Yuvarlatılmış köşeler */
+    cursor: pointer;
+    font-size: 16px; /* Yazı boyutu */
+    width: 20%; /* Tam genişlik */
+    max-width: 300px; /* Maksimum genişlik */
+}
+
+button[type="submit"]:hover {
+    background-color: hwb(212 11% 59%); /* Hover durumunda arka plan rengi */
+}
+
+.form-heading {
+    color: rgb(130, 184, 255);
+}
+
+
+
+#follower {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    pointer-events: none;   /* Fare tıklamalarından etkilenmez             <div id="follower"> </div>       */
+    transition: transform 0.0000001s ease;  /*Hareketin yumuşak görünmesi için */
+}
+
+#followereg {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    pointer-events: none;  /*Fare tıklamalarından etkilenmez             <div id="follower"> </div>       */
+    transition: transform 0.000000001s ease; /* Hareketin yumuşak görünmesi için */
+}
+

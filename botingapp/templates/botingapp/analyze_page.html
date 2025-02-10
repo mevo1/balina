@@ -1,0 +1,271 @@
+{% extends "appbase.html" %}
+{% load static %}
+{% load bot_filters %}
+
+    {% block css_files %} 
+    <link rel="stylesheet" href="{% static 'homeapp/css/profilestyle.css' %}">
+    <link rel="stylesheet" href="{% static 'strategyapp/css/alert.css' %}">
+    <link rel="stylesheet" href="{% static 'botingapp/css/bot_list.css' %}">
+    <link rel="stylesheet" href="{% static 'backtestapp/css/dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'botingapp/css/bot_situation.css' %}">
+    {% endblock %} 
+
+    {% block topbar %} 
+    {% endblock %} 
+
+    {% block leftbar %} 
+        {% include "homeapp/leftbar.html" %}
+    {% endblock %} 
+
+    {% block rightbar %} 
+        {% include "botingapp/bot_list.html" %} 
+    {% endblock %} 
+
+    {% block content %}
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-gradient bg-primary text-white d-flex justify-content-between align-items-center py-2">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-robot me-2"></i>
+                            <span class="fw-bold">{{ bot.name }}</span>
+                        </div>
+                        <button class="btn btn-outline-light btn-sm" onclick="removeBot({{ bot.id }})">
+                            <i class="fas fa-trash-alt me-1"></i>
+                            Remove Bot
+                        </button>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-center px-3">
+                                <div class="text-dark small mb-1"><strong>Total Holdings</strong></div>
+                                <div class="h5 mb-0 text-dark fw-bold" id="total-holdings">${{ bot_profit.last_amount|floatformat:2 }}</div>
+                            </div>
+                            <div class="border-start border-end text-center px-3">
+                                <div class="text-muted small mb-1">Total Profit</div>
+                                <div class="h5 mb-0 text-success" id="total-profit" data-initial-amount="{{ bot.first_amount }}">${{ bot_profit.last_amount|sub:bot_profit.day_first_amount|floatformat:2 }}</div>
+                            </div>
+                            <div class="text-center px-3">
+                                <div class="text-muted small mb-1">Portfolio Share</div>
+                                <div class="h5 mb-0 text-primary" id="portfolio-share" data-user-balance="{{ request.user.balance.amount }}">{{ bot_profit.last_amount|percentage:request.user.balance.amount|floatformat:2 }}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- İlk kutu: Transaction List -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        Transaction List
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for transaction in bot_transaction %}
+                                <li class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            {% if transaction.transaction %}
+                                                <span class="badge bg-success me-2">Buy</span>
+                                            {% else %}
+                                                <span class="badge bg-danger me-2">Sell</span>
+                                            {% endif %}
+                                            <span class="fw-bold text-primary">{{ transaction.asset_id }}</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-4">
+                                            <span ><span class="text-primary" >${{ transaction.amount|floatformat:2 }}</span></span>
+                                            <span style="margin-right: 50px">Piece: <span class="text-success" >{{ transaction.piece|floatformat:2 }}</span></span>
+                                            <span class="badge bg-secondary">{{ transaction.date|date:"d.m.Y H:i" }}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No transactions available.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- İkinci kutu: Bot Situation -->
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-gradient bg-success text-white d-flex align-items-center">
+                        <i class="fas fa-chart-pie me-2"></i>
+                        <span class="fw-bold">Bot Situation</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            {% for situation in bot_situation %}
+                                <li class="list-group-item hover-effect">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <strong class="text-primary fs-5" id="{{ situation.code|lower }}-code">{{ situation.code }}</strong>
+                                            
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-cubes text-warning me-2"></i>
+                                                <span class="text-muted">Piece:</span>
+                                            </div>
+                                            <span class="fw-bold" id="{{ situation.code|lower }}-piece">
+                                                {{ situation.piece}}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-2">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-dollar-sign text-success me-2"></i>
+                                                <span class="text-muted">Amount:</span>
+                                            </div>
+                                            <span class="fw-bold" id="{{ situation.code|lower }}-amount">
+                                                ${{ situation.amount|floatformat:2 }}
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item text-center py-4">
+                                    <i class="fas fa-info-circle text-muted mb-2" style="font-size: 2rem;"></i>
+                                    <p class="text-muted mb-0">No situation data available.</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Üçüncü kutu: Bot Profit -->
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-gradient bg-primary text-white d-flex align-items-center">
+                        <i class="fas fa-chart-line me-2"></i>
+                        <span class="fw-bold">Bot Profit Analysis</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item border-0 py-3" data-day-first-amount="{{ bot_profit.day_first_amount }}">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-calendar-day text-primary me-2"></i>
+                                        <span class="fw-medium fs-6">Daily</span>
+                                    </div>
+                                    {% with daily_profit=bot_profit.last_amount|sub:bot_profit.day_first_amount %}
+                                        {% if daily_profit >= 0 %}
+                                            <span class="badge bg-success-subtle text-success fs-6" id="daily-profit-up">
+                                                <i class="fas fa-arrow-up" ></i>
+                                                ${{ daily_profit|floatformat:1 }} (%{{ daily_profit|percentage:bot_profit.day_first_amount|floatformat:1 }})
+                                            </span>
+                                        {% else %}
+
+                                            <span class="badge bg-danger-subtle text-danger fs-6" id="daily-profit-down">
+                                                <i class="fas fa-arrow-down "></i>
+                                                ${{ daily_profit|absolute|floatformat:1 }} (%{{ daily_profit|percentage:bot_profit.day_first_amount|absolute|floatformat:1 }})
+                                            </span>
+
+
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                            </li>
+                            <li class="list-group-item border-0 py-3" data-week-first-amount="{{ bot_profit.week_first_amount }}">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-calendar-week text-primary me-2"></i>
+                                        <span class="fw-medium fs-6">Weekly</span>
+                                    </div>
+                                    {% with weekly_profit=bot_profit.last_amount|sub:bot_profit.week_first_amount %}
+                                        {% if weekly_profit >= 0 %}
+                                            <span class="badge bg-success-subtle text-success fs-6" id="weekly-profit-up">
+                                                <i class="fas fa-arrow-up" ></i>
+                                                ${{ weekly_profit|floatformat:1 }} (%{{ weekly_profit|percentage:bot_profit.week_first_amount|floatformat:1 }})
+                                            </span>
+                                        {% else %}
+
+                                            <span class="badge bg-danger-subtle text-danger fs-6" id="weekly-profit-down">
+                                                <i class="fas fa-arrow-down" ></i>
+                                                ${{ weekly_profit|absolute|floatformat:1 }} (%{{ weekly_profit|percentage:bot_profit.week_first_amount|absolute|floatformat:1 }})
+                                            </span>
+
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                            </li>
+                            <li class="list-group-item border-0 py-3" data-month-first-amount="{{ bot_profit.month_first_amount }}">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center ">
+                                        <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                        <span class="fw-medium fs-6">Monthly</span>
+                                    </div>
+                                    {% with monthly_profit=bot_profit.last_amount|sub:bot_profit.month_first_amount %}
+                                        {% if monthly_profit >= 0 %}
+                                            <span class="badge bg-success-subtle text-success fs-6" id="monthly-profit-up">
+                                                <i class="fas fa-arrow-up" ></i>
+                                                ${{ monthly_profit|floatformat:1 }} (%{{ monthly_profit|percentage:bot_profit.month_first_amount|floatformat:1 }})
+                                            </span>
+
+                                        {% else %}
+                                            <span class="badge bg-danger-subtle text-danger fs-6" id="monthly-profit-down">
+                                                <i class="fas fa-arrow-down" ></i>
+                                                ${{ monthly_profit|absolute|floatformat:1 }} (%{{ monthly_profit|percentage:bot_profit.month_first_amount|absolute|floatformat:1 }})
+                                            </span>
+                                        {% endif %}
+                                    {% endwith %}
+
+                                </div>
+                            </li>
+                            <li class="list-group-item border-0 py-3" data-first-amount="{{ bot_profit.first_amount }}">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-chart-pie text-primary me-2"></i>
+                                        <span class="fw-medium fs-6">Total</span>
+
+                                    </div>
+                                    {% with total_profit=bot_profit.last_amount|sub:bot_profit.first_amount %}
+                                        {% if total_profit >= 0 %}
+                                            <span class="badge bg-success-subtle text-success fs-6" id="total-profit-up">
+                                                <i class="fas fa-arrow-up"></i>
+                                                ${{ total_profit|floatformat:1 }} (%{{ total_profit|percentage:bot_profit.first_amount|floatformat:1 }})
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-danger-subtle text-danger fs-6" id="total-profit-down">
+                                                <i class="fas fa-arrow-down"></i>
+                                                ${{ total_profit|absolute|floatformat:1 }} (%{{ total_profit|percentage:bot_profit.first_amount|absolute|floatformat:1 }})
+                                            </span>
+
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="price-container">
+        <h3>BTC/USDT: <span id="btcusdt-price">Loading...</span></h3>
+        <h3>ETH/USDT: <span id="ethusdt-price">Loading...</span></h3>
+        <h3>BNB/USDT: <span id="bnbusdt-price">Loading...</span></h3>
+        <h3>ADA/USDT: <span id="adausdt-price">Loading...</span></h3>
+        <h3>DOGE/USDT: <span id="dogeusdt-price">Loading...</span></h3>
+    </div>
+    {% endblock %}
+
+
+    {% block alert %} 
+    <div id="custom-alert" class="hidden">
+        <span id="alert-message"></span>
+    </div>
+    {% endblock %}
+
+    {% block js_files %} 
+        <script src="{% static 'homeapp/js/leftbar.js' %}"></script>
+        <script src="{% static 'strategyapp/js/dropdown.js' %}"></script>
+        <script src="{% static 'backtestapp/js/backtest_list.js' %}"></script>
+        <script src="{% static 'botingapp/js/bot.js' %}"></script>
+        <script src="{% static 'botingapp/js/websocket.js' %}"></script>
+    {% endblock %}

@@ -1,0 +1,37 @@
+{% extends "appbase.html" %}
+{% load static %}
+
+    {% block css_files %} 
+    <link rel="stylesheet" href="{% static 'homeapp/css/profilestyle.css' %}">
+    <link rel="stylesheet" href="{% static 'strategyapp/css/alert.css' %}">
+    <link rel="stylesheet" href="{% static 'backtestapp/css/backtest_list.css' %}">
+    <link rel="stylesheet" href="{% static 'backtestapp/css/dropdown.css' %}">
+    {% endblock %} 
+
+    {% block topbar %} 
+    {% endblock %} 
+
+    {% block leftbar %} 
+        {% include "homeapp/leftbar.html" %}
+    {% endblock %} 
+
+    {% block rightbar %} 
+        {% include "backtestapp/backtest_list.html" %} 
+    {% endblock %} 
+
+    {% block content %}
+        {% include "backtestapp/result.html" %}
+    {% endblock %}
+
+    {% block alert %} 
+    <div id="custom-alert" class="hidden">
+        <span id="alert-message"></span>
+    </div>
+    {% endblock %}
+
+    {% block js_files %} 
+        <script src="{% static 'homeapp/js/leftbar.js' %}"></script>
+        <script src="{% static 'strategyapp/js/dropdown.js' %}"></script>
+        <script src="{% static 'backtestapp/js/backtest_list.js' %}"></script>
+        <script src="{% static 'backtestapp/js/backtest.js' %}"></script>
+    {% endblock %}

@@ -1,0 +1,16 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-warning text-white">
+        <h5 class="mb-0">My APIs</h5>
+    </div>
+    <div class="card-body">
+        <form id="strategy-form">
+            {% for api in apis %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="api" id="{{api.id}}" value="{{api.name}}">
+                <label class="form-check-label" for="{{api.id}}">{{api.name}}</label>
+            </div>
+            {% endfor %}
+
+        </form>
+    </div>
+</div>

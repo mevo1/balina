@@ -1,0 +1,53 @@
+{% extends "appbase.html" %}
+{% load static %}
+
+    {% block css_files %} 
+    <link rel="stylesheet" href="{% static 'homeapp/css/profilestyle.css' %}">
+    <link rel="stylesheet" href="{% static 'strategyapp/css/rightbar.css' %}">
+    <link rel="stylesheet" href="{% static 'strategyapp/css/alert.css' %}">
+    <link rel="stylesheet" href="{% static 'strategyapp/css/strategies_list.css' %}">
+    {% endblock %} 
+
+    {% block topbar %} 
+    {% endblock %} 
+
+    {% block leftbar %} 
+        {% include "homeapp/leftbar.html" %}
+    {% endblock %} 
+
+    {% block rightbar %} 
+            {% include "customizationapp/rightbar.html" %} 
+    {% endblock %} 
+
+    {% block content %}
+        <div class="row">
+            <div class="col-md-4" style="margin-top: 15px;">
+                <div class="ms-5">
+                    {% include "strategyapp/addstrategy.html" %}
+                </div> 
+            </div>
+            <div class="col-md-8" style="margin-top: 15px;">
+                <div class="me-5">
+                    {% include "strategyapp/addgraph.html" %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        {% include "strategyapp/strategies_list.html" %}
+    {% endblock %}
+
+    {% block alert %} 
+    <div id="custom-alert" class="hidden">
+        <span id="alert-message"></span>
+    </div>
+    {% endblock %}
+
+    {% block js_files %} 
+        <script src="{% static 'homeapp/js/leftbar.js' %}"></script>
+        <script src="{% static 'strategyapp/js/rightbar.js' %}"></script>
+        <script src="{% static 'strategyapp/js/indicator.js' %}"></script>
+        <script src="{% static 'strategyapp/js/strategy.js' %}"></script>
+        <script src="{% static 'strategyapp/js/dropdown.js' %}"></script>
+        <script src="{% static 'strategyapp/js/graph.js' %}"></script>
+    {% endblock %}

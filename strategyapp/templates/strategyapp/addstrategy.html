@@ -1,0 +1,71 @@
+
+<div class="card shadow-sm" style="background-color: #181818; color: white;">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="card-title text-center mb-4">New Strategy</h4>
+            </div>
+            <div class="col-md-2">
+                <button id="mainButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#strategyModal">
+                    ☰
+                </button>
+            </div>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+                <form id="new-strategy-form" action="strategy" method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Strategy Title</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="title" 
+                            id="strategy-title" 
+                            placeholder="Enter Title" 
+                            style="background-color: #1f1f1f; color: white;"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code</label>
+                        <textarea 
+                            class="form-control" 
+                            name="code" 
+                            id="code" 
+                            rows="15" 
+                            style="background-color: #1f1f1f; color: white; white-space: nowrap; overflow-x: scroll; resize: none;" 
+                            required></textarea>
+                    </div>
+                    <div class="text-center d-flex justify-content-end">
+                        <!-- Save Button -->
+                        <button type="button" class="btn btn-primary me-2" onclick="resetForm()">New</button>
+                        <button type="button" class="btn btn-primary me-2" onclick="saveStrategy()">Save</button>
+                        <!-- Fullscreen Button -->
+                        <button 
+                        type="button" 
+                        class="btn btn-outline-secondary d-flex align-items-center justify-content-center" 
+                        id="fullscreen-toggle" 
+                        title="Fullscreen"
+                        style="width: 40px; height: 40px; padding: 0; border-radius: 5px;">
+                        <i class="fas fa-expand" style="font-size: 1.2rem;"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fullscreen" viewBox="0 0 16 16">
+                            <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                        </button>
+        
+                    </div>
+                </form>
+        </form>
+    </div>
+</div>
+
+<button 
+    type="button" 
+    class="btn btn-danger" 
+    id="close-fullscreen" 
+    title="Exit Fullscreen" 
+    style="display: none; position: fixed; top: 50px; right: 110px; z-index: 9999;">
+    <i class="bi bi-x-lg"></i>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+      </svg>
+</button>

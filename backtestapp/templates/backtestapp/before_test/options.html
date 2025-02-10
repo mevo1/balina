@@ -1,0 +1,69 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Options</h5>
+    </div>
+    <div class="card-body">
+        <form id="options-form">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="dropdown ms-2">
+                        <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" type="button" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Interval 
+                        </button>
+                        <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenu3">
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu3', 'dropdown3', '1m'  ,'1 Minutes')">1 Minutes</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu3', 'dropdown3', '15m' ,'15 Minutes')">15 Minutes</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu3', 'dropdown3', '30m' ,'30 Minutes')">30 Minutes</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu3', 'dropdown3', '1h'  ,'1 Hour')">1 Hour</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu3', 'dropdown3', '4h'  ,'4 Hours')">4 Hours</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu3', 'dropdown3', '1d'  ,'1 Day')">1 Day</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu3', 'dropdown3', '1w'  ,'1 Week')">1 Week</a></li>
+                        </ul>
+                        <input type="hidden" name="interval" id="dropdown3">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="dropdown ms-2">
+                        <button class="btn btn-secondary dropdown-toggle custom-dropdown-button" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Period
+                        </button>
+                        <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '1d'   ,'1 Day')">1 Day</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '5d'   ,'5 Days')">5 Days</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '30d'  ,'1 Month')">1 Month</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '90d'  ,'3 Months')">3 Months</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '180d' ,'6 Months')">6 Months</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '365d'   ,'1 Year')">1 Year</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '730d'   ,'2 Years')">2 Years</a></li>
+                            <li><a class="dropdown-item custom-dropdown-item" href="#" onclick="setSelection('dropdownMenu2', 'dropdown2', '1825d'   ,'5 Years')">5 Years</a></li>
+                        </ul>
+                        <input type="hidden" name="period" id="dropdown2">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="first-margin" class="form-label">First Marj</label>
+                    <input type="text" class="form-control" id="first-margin" name="first-margin" placeholder="Exp: 1000 $">
+                </div>
+                <div class="col-md-6">
+                    <label for="commission" class="form-label">Commission</label>
+                    <input type="text" class="form-control" id="commission" name="commission" placeholder="Exp: 0.1%">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-check col-md-5 ms-3">
+                    <input class="form-check-input" type="checkbox" id="take-profit" value="Hareketli Kar Al">
+                    <label class="form-check-label" for="take-profit">Moving Take Profit</label>
+                </div>
+                <div class="form-check col-md-5 ms-4">
+                    <input class="form-check-input" type="checkbox" id="stop-loss" value="Hareketli Zarar Durdur">
+                    <label class="form-check-label" for="stop-loss">Moving Stop Loss</label>
+                </div>
+            </div>
+            <div class="d-grid">
+                <button type="button" class="btn btn-danger" id="run-bot" onclick="saveBacktest()"> Run Backtest ▶︎</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+{% extends "appbase.html" %}
+{% load static %}
+
+    {% block css_files %} 
+    <link rel="stylesheet" href="{% static 'homeapp/css/profilestyle.css' %}">
+    <link rel="stylesheet" href="{% static 'strategyapp/css/alert.css' %}">
+    <link rel="stylesheet" href="{% static 'botingapp/css/bot_list.css' %}">
+    <link rel="stylesheet" href="{% static 'backtestapp/css/dropdown.css' %}">
+    {% endblock %} 
+
+    {% block topbar %} 
+    {% endblock %} 
+
+    {% block leftbar %} 
+        {% include "homeapp/leftbar.html" %}
+    {% endblock %} 
+
+    {% block rightbar %} 
+        {% include "botingapp/bot_list.html" %} 
+    {% endblock %} 
+
+    {% block content %}
+        <div class="container">
+            <!-- Backtest Adı Alanı -->
+            <div class="row mb-4">
+                <div class="col-12 text-center mt-4">
+                    <input type="text" id="bot-name-input" class="form-control mx-auto" style="width: 25%;" placeholder="Bot Name">
+                </div>
+            </div>            
+
+            <!-- Üçlü Row -->
+            <div class="row">
+                <div class="col-md-3" style="margin-top: 15px;">
+                    <div class="mx-3">
+                        {% include "backtestapp/before_test/strategies.html" %}
+                    </div> 
+                </div>
+                <div class="col-md-3" style="margin-top: 15px;">
+                    <div class="mx-3">
+                        {% include "botingapp/apis.html" %}
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top: 15px;">
+                    <div class="mx-3">
+                        {% include "backtestapp/before_test/coins.html" %}
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top: 15px;">
+                    <div class="mx-2">
+                        {% include "botingapp/options.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+
+    {% block alert %} 
+    <div id="custom-alert" class="hidden">
+        <span id="alert-message"></span>
+    </div>
+    {% endblock %}
+
+    {% block js_files %} 
+        <script src="{% static 'homeapp/js/leftbar.js' %}"></script>
+        <script src="{% static 'strategyapp/js/dropdown.js' %}"></script>
+        <script src="{% static 'backtestapp/js/backtest_list.js' %}"></script>
+
+        <script src="{% static 'botingapp/js/bot.js' %}"></script>
+    {% endblock %}

@@ -1,0 +1,16 @@
+/* static/css/base.css */
+body {
+    background: linear-gradient(
+        135deg,  /* Çapraz açı */
+        rgb(0, 0, 0) ,
+        rgb(0, 39, 83) 65%, /* İlk renk */
+        #031636 65%, /* Yumuşak geçiş için ikinci renk */
+        rgb(0, 0, 0) 100% /* Üçüncü renk */
+      );
+    background-attachment: fixed; /* Gradient'in kaydırmada sabit kalmasını sağlar */
+    background-repeat: no-repeat; /* Gradient'in tekrar etmesini engeller */
+    background-size: cover; /* Gradient tüm alanı kapsar */
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
