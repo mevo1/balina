@@ -23,6 +23,7 @@ def add_strategy(request):
             data = json.loads(request.body)
             title = data.get("title")
             code = data.get("code")
+            candles = data.get("candles")
 
             if not title or not code:
                 return JsonResponse({"message": "Title and code are required.","info":"warning"})
@@ -30,7 +31,7 @@ def add_strategy(request):
             if Strategy.objects.filter(title=title, user_id=request.user.id).exists():
                 return JsonResponse({"message": "There is an indicator with the same title!","info":"warning"})
             
-            Strategy.objects.create(title=title, code=code, user_id=request.user.id)
+            Strategy.objects.create(title=title, code=code, user_id=request.user.id, candles=candles)
 
             return JsonResponse({"message": "Indicator saved successfully.","info":"success"})
         except Exception as e:
@@ -43,7 +44,7 @@ def update_strategy(request, id):
             data = json.loads(request.body)
             title = data.get("title")
             code = data.get("code")
-
+            candles = data.get("candles")
             strategy = get_object_or_404(Strategy, id=id, user=request.user)
 
             if Strategy.objects.filter(title=title).exclude(id=id).exists():
@@ -54,7 +55,9 @@ def update_strategy(request, id):
 
             strategy.title = title
             strategy.code = code
+            strategy.candles = candles
             strategy.save()
+
 
             return JsonResponse({"message": "Indicator updated successfully.","info":"success"})
         except Exception as e:
@@ -67,6 +70,7 @@ def open_strategy(request, id):
         "id": strategy.id,
         "title": strategy.title,
         "code": strategy.code,
+        "candles": strategy.candles
     })
 
 def del_strategy(request, id):
