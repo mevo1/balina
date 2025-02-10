@@ -81,4 +81,20 @@ input[type="password"]:focus {
     color: rgb(130, 184, 255);
 }
 
+@keyframes rotate {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+.rotating-img {
+  width: 150px; /* Görsel boyutunu ihtiyacına göre ayarla */
+  height: auto;
+  animation: rotate 5s linear infinite; /* Sonsuz döngüde 5 saniyede bir tam tur döner */
+}
+
+
   

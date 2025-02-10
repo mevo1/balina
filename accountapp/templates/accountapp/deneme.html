@@ -28,53 +28,28 @@
 
 
 
-{% block topbar %}
-<header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
-      <a href="{% url 'intropage' %}" class="logo d-flex align-items-center me-auto me-xl-0">
-        <img src="{% static 'accountapp/assets/img/logo1.jpg' %}" alt="Logo" class="whaleavatar">
-        <h1 class="sitename">Balina Yatırım</h1>
-      </a>
-<!-- # ile aynı sayfadaki bölge bağlantıları yapılıyor-->
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="{% url 'intropage' %}">Anasayfa</a></li>
-          <li><a href="{% url 'how_to_use' %}">Nasıl Kullanılır?</a></li>
-          <li><a href="{% url 'premium' %}">Premium Üyelik</a></li>
-          <li><a href="{% url 'about' %}" >Hakkında</a></li>
-          <li class="dropdown"><a href="#"><span>Özellikler</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#features-tab-1">Strateji oluşturma </a></li>
-              <li><a href="#features-tab-2">Otomatik alım-satım botları</a></li>
-              <li><a href="#features-tab-3">Backtest yapma</a></li>
-              <li><a href="#features-tab-4">İndikatör ekleme</a></li>
-              <li><a href="#features-tab-5">Strateji taraması</a></li>
-            </ul>
-          </li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-
-      {% if user.is_authenticated %}
-              <a class="btn-getstarted" href="{% url 'profile' %}">Profilim</a>
-              <a class="btn-getstarted" href="{% url 'logout' %}">Çıkış yap</a>
-  {% else %}
-              <a class="btn-getstarted" href="{% url 'login' %}">Giriş Yap</a>
-              <a class="btn-getstarted" href="{% url 'register' %}">Kayıt Ol</a>
-          
-  {% endif %}
-
-    </div>
-  </header>
-{% endblock %}
-
-
 {% block content %}
-<div class="bg-pattern" style="height: 100vh;">
-
-  </div>
-  
+<div class="tradingview-widget-container">
+  <div id="tradingview_chart"></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+    new TradingView.widget({
+      "container_id": "tradingview_chart",
+      "width": "100%",
+      "height": 600,
+      "symbol": "BINANCE:BTCUSDT",
+      "interval": "5", // 5 dakikalık grafik
+      "timezone": "Etc/UTC",
+      "theme": "dark",
+      "style": "1",
+      "locale": "tr",
+      "toolbar_bg": "#f1f3f6",
+      "enable_publishing": false,
+      "allow_symbol_change": true,
+      "studies": ["RSI@tv-basicstudies", "MACD@tv-basicstudies"]
+    });
+  </script>
+</div>
 {% endblock %}
 
 
