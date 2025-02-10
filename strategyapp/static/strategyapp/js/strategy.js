@@ -49,6 +49,7 @@ function saveStrategy() {
     //remove_graph()
     const title = document.getElementById("strategy-title").value;
     const code = document.getElementById("code").value;
+    const candles = document.getElementById("candles").value;
 
     const url = currentStrategyId
         ? `/strategy/api/strategy_edit/${currentStrategyId}/` // Güncelleme için
@@ -62,7 +63,7 @@ function saveStrategy() {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCSRFToken()
         },
-        body: JSON.stringify({ title, code })
+        body: JSON.stringify({ title, code, candles })
     })
     
     .then(response => {
@@ -85,8 +86,10 @@ function openStrategy(id) {
             currentStrategyId = id;
             document.getElementById("strategy-title").value = data.title;           
             document.getElementById("code").value = data.code;
+            document.getElementById("candles").value = data.candles;
             currentIndicatorId = id; // Güncelleme için ID'yi ayarla
             
+
             closeModal('strategyModal');
         });
 }

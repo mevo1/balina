@@ -26,12 +26,25 @@
                             required>
                     </div>
                     <div class="mb-3">
+                        <label for="candles" class="form-label">Candles Count</label>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            name="candles" 
+                            id="candles" 
+                            min="1" 
+                            max="200" 
+                            style="background-color: #1f1f1f; color: white;" 
+                            placeholder="(1-200)"
+                            required>
+                    </div>
+                    <div class="mb-3">
                         <label for="code" class="form-label">Code</label>
                         <textarea 
                             class="form-control" 
                             name="code" 
                             id="code" 
-                            rows="15" 
+                            rows="12" 
                             style="background-color: #1f1f1f; color: white; white-space: nowrap; overflow-x: scroll; resize: none;" 
                             required></textarea>
                     </div>
