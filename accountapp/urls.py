@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .views import LoginView
+
 
 urlpatterns = [
     path("", views.index, name="intro-page"),
@@ -16,4 +18,9 @@ urlpatterns = [
     path('buysell/', views.buysell, name='buysell'),
     path('community/', views.community, name='community'),
     path('deneme/', views.deneme, name='deneme'),
+
+    # next.js
+    path('api/hero-infos/', views.hero_infos, name='hero-infos'),
+    path("api/login/", LoginView.as_view(), name="login"),
+
 ]

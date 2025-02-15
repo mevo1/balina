@@ -149,14 +149,17 @@ function plot_main_graph(data){
     Highcharts.stockChart('chart-container', {
         chart: {
             height: dynamicHeight,
-            backgroundColor: '#171b26' // Arka plan rengini buraya ekliyoruz
+            backgroundColor: '#1c1c1c' // Arka plan rengini buraya ekliyoruz
         },
         rangeSelector: {
             selected: 1
         },
         xAxis: {
-            gridLineColor: 'rgba(255, 255, 255, 0.2)', // Yatay çizgilerin rengini ve saydamlığını artır
-            gridLineDashStyle: 'ShortDash', // Çizgi stilini kısa kesikli yap
+            crosshair: {
+                color: '#ff0000', // Kırmızı crosshair çizgisi
+                width: 1,
+                dashStyle: 'Dash'
+            },
             labels: {
                 style: {
                     color: '#FFFFFF' // Tarih göstergelerinin beyaz rengi
@@ -164,18 +167,26 @@ function plot_main_graph(data){
             }
         },
         yAxis: {
-            gridLineColor: 'rgba(255, 255, 255, 0.2)', // Yatay çizgilerin saydamlığı için renk
-            gridLineDashStyle: 'ShortDash'
+            crosshair: {
+                color: '#00ff00', // Yeşil crosshair çizgisi
+                width: 1,
+                dashStyle: 'Dash'
+            },
+            labels: {
+                style: {
+                    color: '#FFFFFF' // Tarih göstergelerinin beyaz rengi
+                }
+            }
         },
         title: null,
         series: [{
             type: traceList[0].type,
             name: traceList[0].name,
             data: formattedData,
-            upColor: 'green',
-            color: 'red',
-            lineColor: 'red',
-            upLineColor: 'green',
+            upColor: '#089981',
+            color: '#f23645',
+            lineColor: '#f23645',
+            upLineColor: '#089981',
             tooltip: {
                 valueDecimals: 2
             },
