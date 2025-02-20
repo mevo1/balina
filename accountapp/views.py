@@ -1,7 +1,72 @@
 from django.http.response import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from botingapp.models import Bot
+from strategyapp.models import Strategy
+
+from django.contrib.auth import authenticate
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import LoginSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def protected_view(request):
+    return Response({"message": f"Merhaba {request.user.username}, bu sayfa korumalı!"})
+
+# NEXT.JS
+def hero_infos(request):
+    user_count = User.objects.count()  # Kullanıcı sayısını al
+    trader_count = Bot.objects.values("user").distinct().count()
+    strategy_count = Strategy.objects.count()
+    bot_count = Bot.objects.count()
+    return JsonResponse({
+        'user_count': user_count,
+        'trader_count': trader_count,
+        'strategy_count': strategy_count,
+        'bot_count': bot_count,
+    })  # JSON olarak döndür
+
+
+class LoginView(APIView):
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data["username"]
+            password = serializer.validated_data["password"]
+            user = authenticate(username=username, password=password)
+
+            if user:
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    "message": "Giriş başarılı",
+                    "access_token": str(refresh.access_token),
+                    "refresh_token": str(refresh),
+                    "user": {
+                        "id": user.id,
+                        "username": user.username,
+                        "email": user.email
+                    }
+                }, status=status.HTTP_200_OK)
+
+            return Response(
+                {"message": "Geçersiz kullanıcı adı veya şifre!"}, 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        return Response(
+            {"message": "Geçersiz giriş verisi!", "errors": serializer.errors}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+
 
 # Create your views here.
 def index(request):

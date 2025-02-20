@@ -38,8 +38,8 @@ def create_bot(request):
         
         requested_amount = existing_total + Decimal(str(first_amount))
         
-        if requested_amount > user_balance.amount:
-            available_balance = (user_balance.amount - existing_total).quantize(Decimal('1.2'))
+        if requested_amount > user_balance.balance:
+            available_balance = (user_balance.balance - existing_total).quantize(Decimal('1.2'))
             return JsonResponse({
                 "message": f"Yetersiz bakiye! Kullanılabilir bakiye: {available_balance}",
                 "info": "warning"
